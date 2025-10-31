@@ -27,7 +27,7 @@ class User:
             # withは処理の終了時にclose()と同様に閉じてくれるもので、SQL実行中にエラーが起きてもcursorを開放してconnをプールに返却する
             sql = "INSERT INTO users (user_id, user_name, email, password, is_admin, family_id, family_name, created_at) VALUES (%s, %s, %s, %s, %s, %s, %s, %s);"
             # SQLを実行し、パラメータ(user_id, etc…)を埋め込む
-            cur.execute(sql, (user_id, user_name, email, password, is_admin, family_id, family_name, created_at))
+            cur.execute(sql, (user_id, user_name, email, password, is_admin, family_id, family_name, created_at,))
             # データベースに変更を反映（保存）する
             conn.commit()
             # ここでデータが確定される
@@ -49,7 +49,9 @@ class User:
       try:
           with conn.cursor() as cur:
               sql = "SELECT * FROM users WHERE email=%s;"
-              cur.excute(sql, (email))
+              cur.execute(sql, (email,))
+              # 末尾にカンマを入れることで要素が1つでもタプルとして渡すことができる
+              # SQLインジェクションを防ぐためにタプルで渡すというPythonの決まりに従ったpymysqlの仕様
               user = cur.fetchone()
               # fetchoneはSQLの実行結果からデータを1行だけ持ってくる
           return user
