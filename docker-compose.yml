@@ -2,7 +2,7 @@
 services:
   db:
     # コンテナ名をmysqlに設定
-    container_name: MySQL
+    container_name: Gohando-suru_MySQL
     # MySQLのDockerfileをビルドする
     build:
       # ビルドコンテキストはカレントディレクトリ
@@ -21,6 +21,8 @@ services:
       - MYSQL_DATABASE=${DB_DATABASE}
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_PASSWORD}
+    ports:
+      - "3307:3306"
     # .envファイルから環境変数を読み込む
     env_file:
       - .env
@@ -39,7 +41,7 @@ services:
 
   app:
     # コンテナ名をFlaskに設定
-    container_name: Flask
+    container_name: Gohando-suru_Flask
     # FlaskのDockerfileをビルドする
     build:
       # ビルドコンテキストはカレントディレクトリ
