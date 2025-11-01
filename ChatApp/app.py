@@ -5,12 +5,12 @@ from models import User
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
-# uuid4は16バイト(hex)の乱数乱数によりUUIDを生成する
+# uuid4はuuidモジュールのバージョン4で、16バイト(hex)の乱数のUUIDを生成してくれる
 
 # トップページの処理
 @app.route('/', methods=['GET'])
 def index():
-  user_id = session.get(user_id)
+  user_id = session.get('user_id')
   if user_id is None:
     return render_template('index.html')
   return redirect(url_for(messages_view))
