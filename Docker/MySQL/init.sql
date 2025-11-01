@@ -37,20 +37,20 @@ CREATE TABLE votes (
 
 CREATE TABLE roulette (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    family_id VARCHAR(255) UNIQUE NOT NULL,
+    user_id VARCHAR(255) UNIQUE NOT NULL,
     menu TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (family_id) REFERENCES users(family_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 CREATE TABLE histories (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    family_id VARCHAR(255) UNIQUE NOT NULL,
+    user_id VARCHAR(255) UNIQUE NOT NULL,
     menu TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (family_id) REFERENCES users(family_id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-INSERT INTO users(id, user_name, email, password, is_admin, family_id, family_name, created_at) VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','テスト','test@gmail.com','test123', '1', '970af84c-dd40-47ff-af23-282b72b7cca9', 'テスト家', NOW());
+INSERT INTO users(id, user_name, email, password, is_admin, family_id, family_name, created_at) VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','テスト','test@gmail.com','test123', True, '970af84c-dd40-47ff-af23-282b72b7cca9', 'テスト家', NOW());
 -- INSERT INTO channels(id, uid, name, abstract) VALUES(1, '970af84c-dd40-47ff-af23-282b72b7cca8','ぼっち部屋','テストさんの孤独な部屋です');
 -- INSERT INTO messages(id, uid, cid, message) VALUES(1, '970af84c-dd40-47ff-af23-282b72b7cca8', '1', '誰かかまってください、、')
