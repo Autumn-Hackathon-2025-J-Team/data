@@ -14,7 +14,7 @@ services:
     # DBのボリュームを指定
     # ローカルの/data/dbをコンテナの/var/lib/mysqlにマウントする
     volumes:
-      - mysql_data_Gohan:/var/lib/mysql
+      - mysql_data_Gohando-suru:/var/lib/mysql
     # コンテナ内の環境変数を設定
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
@@ -66,4 +66,4 @@ services:
       - .env
 
 volumes:
-  mysql_data_Gohan-dosuru:
+  mysql_data_Gohando-suru:
