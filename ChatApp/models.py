@@ -12,7 +12,7 @@ db_pool = DB.init_db_pool()
 # ユーザークラス
 class User:
   @classmethod
-  def create(cls, user_id, user_name, email, password, is_admin, family_id, family_name):
+  def create(cls, id, user_name, email, password, is_admin, family_id, family_name):
     # app.pyでUser.createを呼び出すことでサインアップに必要な情報をDBに登録できる
     # クラスメソッドとしてインスタンス化せずにクラス全体に関わる処理を扱う
     # clsは第一引数に渡す、クラス自身を指す特別な引数
@@ -25,9 +25,9 @@ class User:
             # コネクションからカーソル（操作用のオブジェクト）を取得する
             # cursor()メソッドで作成したカーソルをインターフェースとしてDBとやり取りを行い、SQL文を実行したり結果を取得したりする
             # withは処理の終了時にclose()と同様に閉じてくれるもので、SQL実行中にエラーが起きてもcursorを開放してconnをプールに返却する
-            sql = "INSERT INTO users (user_id, user_name, email, password, is_admin, family_id, family_name) VALUES (%s, %s, %s, %s, %s, %s, %s);"
-            # SQLを実行し、パラメータ(user_id, etc…)を埋め込む
-            cur.execute(sql, (user_id, user_name, email, password, is_admin, family_id, family_name,))
+            sql = "INSERT INTO users (id, user_name, email, password, is_admin, family_id, family_name) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+            # SQLを実行し、パラメータ(id, etc…)を埋め込む
+            cur.execute(sql, (id, user_name, email, password, is_admin, family_id, family_name,))
             # データベースに変更を反映（保存）する
             conn.commit()
             # ここでデータが確定される
