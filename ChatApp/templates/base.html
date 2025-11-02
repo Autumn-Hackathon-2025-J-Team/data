@@ -1,14 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
 <head>
+    {% block head %}
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ご飯どーする？</title>
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    {% endblock head %}
 </head>
+
 <body>
-    <h1>ログイン</h1>
-
-   
-
+    <div>
+        <div>
+            <ul>
+                <li><a href="{{url_for('index') }}">トップ画面</a></li>
+                <li><a href="{{url_for('login_view') }}">ログイン画面</a></li>
+                <li><a href="{{url_for('signup_view') }}">サインアップページの表示</a></li>
+                <!-- 現在のユーザーが認証済みユーザーならば、`<li><a href="{{ url_for('logout') }}">ログアウト</a></li>`を実行する -->
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('signup_family_view') }}">サインアップページの表示：家族ユーザ</a></li>
+            </ul>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
+
 </html>
