@@ -9,17 +9,17 @@
 <main>
     <div>
         <h1 class="logo-text">ゴハンドースル</h1>
-        <img src="static/sample.jpg" alt="お皿の写真">
+        <img src="static/img/image_お皿.png" alt="お皿の写真">
 
         <form>
             <p>ファミリーチャットに入る場合はこちらから！</p>
                 <button>
-                    <a href="{{ url_for('ChatApp.login') }}">ログイン</a>
+                    <a href="{{ url_for('login_view') }}">ログイン</a>
                 </button>
     
             <p>新規のファミリーチャット作成はこちらから！</p>
                 <button>
-                    <a href="{{ url_for('ChatApp.signup') }}">新規登録</a>
+                    <a href="{{ url_for('signup_view') }}">新規登録</a>
                 </button>            
             
         </form>  
