@@ -15,22 +15,7 @@
 </head>
 
 <body>
-    <div>
-        <div>
-            <ul>
-                <li><a href="{{url_for('index') }}">トップ画面</a></li>
-                <li><a href="{{url_for('login_view') }}">ログイン画面</a></li>
-                <li><a href="{{url_for('signup_view') }}">サインアップページの表示</a></li>
-                <!-- 現在のユーザーが認証済みユーザーならば、`<li><a href="{{ url_for('logout') }}">ログアウト</a></li>`を実行する -->
-                {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
-                {% endif %}
-                <li><a href="{{ url_for('signup_family_view') }}">サインアップページの表示：家族ユーザ</a></li>
-            </ul>
-        </div>
-        {% block content %}
-        {% endblock content %}
-    </div>
+    
 </body>
 
 </html>
