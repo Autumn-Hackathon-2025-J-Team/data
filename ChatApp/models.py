@@ -60,3 +60,21 @@ class User:
          abort(500)
       finally:
          db_pool.release(conn)
+
+# メッセージクラス
+class Message:
+  @classmethod
+  def get_all(fid):
+      conn = db_pool.get_conn()
+      try:
+          with conn.cursor() as cur:
+              sql = "SELECT * FROM messages WHERE user_id in (SELECT id FROM uses WHERE family_id = %s);"
+              cur.execute(sql, (fid,))
+              messages = cur.fetchall()
+              return messages
+      except pymysql.Error as e:
+          print(f'エラーが発生しています:{e}')
+          abort(500)
+      finally:
+          db_pool.release(conn)          
+          
