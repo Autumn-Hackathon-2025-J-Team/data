@@ -1,20 +1,23 @@
 from flask import Flask, session, render_template, redirect, url_for, request, flash
+from datetime import timedelta
 import uuid
 import os
 import re
 import hashlib
 
-from models import User
+from models import User, Message
 
 # 定数定義
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
 # メールアドレスの形式が正しいか判定するための正規表現
 # ^（文字列の先頭）と$（文字列の末尾）で、指定する形式を囲む
+SESSION_DAYS = 30
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
 # secret_keyはセッション情報（Cookie）を暗号化する際に使用する秘密鍵
 # 第二引数は環境変数が存在しないときに返すデフォルト値で、uuid4はuuidモジュールのバージョン4で、16バイト(hex)の乱数を生成してくれる
+app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 
 # トップページの処理
 @app.route('/', methods=['GET'])
@@ -76,6 +79,69 @@ def signup_family_view():
         flash('管理者ユーザーのみ利用可能な機能です')
         return redirect(url_for('message_view'))
     return render_template('signup_family.html')
+
+# ログインページの表示
+@app.route('/login', methods=['GET'])
+def login_view():
+    return render_template('login.html')
+
+# ログイン処理
+@app.route('/login',methods=['POST'])
+def login_process():
+    email = request.form.get('email')
+    password = request.form.get('password')
+    
+    if email == '' or password == '':
+        flash('空のフォームがあるようです')
+    else:
+        user = User.find_by_email(email)
+        if user is None:
+            flash('このユーザーは存在しません')
+        else:
+            hashPassword = hashlib.sha256(password.encode('utf-8')).hexdigest()
+            if hashPassword != user["password"]:
+                flash('パスワードが間違っています！')
+            else:
+                session['id'] = user["id"]
+                session['fid'] = user["family_id"]
+                return redirect(url_for('messages_view'))
+    return redirect(url_for('login_view'))
+
+# ログアウト
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('login_view'))
+
+# メッセージの投稿
+@app.route('/<family_id>/messages', methods=['POST'])
+def create_message():
+    id = session.get('id')
+
+    # ユーザーidが取得できない場合はログイン画面へ遷移
+    if id is None:
+        return redirect(url_for('login_view'))
+    
+    message = request.form.get('message')
+
+    if message:
+        Message.create(id, message)
+
+    return redirect('/<family_id>/messages')
+
+# チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
+@app.route('/<family_id>/messages', methods=['GRT'])
+def messages_view():
+    id = session.get('id')
+    fid = session.get('fid')
+
+    # ユーザーidが取得できない場合はログイン画面へ遷移
+    if id is None:
+        return redirect(url_for('login_view'))
+    
+    messages = Message.get_all(fid)
+
+    return redirect('/<family_id>/messages')
 
 
 
