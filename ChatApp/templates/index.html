@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="icon">
+    <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="お皿の写真">
+        <p>ファミリーチャットに入る場合はこちらから！</p>
+            <button>
+                <a href="{{ url_for('login_view') }}">ログイン</a>
+            </button>
+    
+        <p>新規のファミリーチャット作成はこちらから！</p>
+            <button>
+                <a href="{{ url_for('signup_view') }}">新規登録</a>
+            </button>            
+</div>
+{% endblock %}
+
+
