@@ -21,8 +21,8 @@ app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
 def index():
   user_id = session.get('user_id')
   if user_id is None:
-    return render_template('index.html')
-  return redirect(url_for('messages_view'))
+    return render_template('top.html')
+  return render_template('top.html') # メッセージ処理が完成したら redirect(url_for('message_view')) に差し替え
 
 
 # サインアップページの表示：管理者ユーザ
@@ -34,10 +34,10 @@ def signup_view():
 # サインアップ処理：管理者ユーザ
 @app.route('/signup', methods=['POST'])
 def signup_process():
-    user_name = request.form.get('name')  # 実際のhtmlフォームのラベル名に基づく
+    user_name = request.form.get('user_name')  # 実際のhtmlフォームのラベル名に基づく
     email = request.form.get('email')
     password = request.form.get('password')
-    family_name = request.form.get('familyname')
+    family_name = request.form.get('family_name')
 
     if user_name == '' or email == '' or password == '' or family_name == '':
         flash('空のフォームがあります')
@@ -64,14 +64,18 @@ def signup_process():
             UserID = str(user_id)
             session['user_id'] = UserID
             # user_idをstring型にしてからセッションに保持
-            return redirect(url_for('messages_view'))
-        return redirect(url_for('signup_process'))
+            return redirect(url_for('index')) #indexは仮でmessage_viewが完成したら差し替え
+    return redirect(url_for('signup_process'))
 
 
 # サインアップページの表示：家族ユーザ
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
-   return render_template('signup_family.html')
+    is_admin = session.get('is_admin')
+    if is_admin == False:
+        flash('管理者ユーザーのみ利用可能な機能です')
+        return redirect(url_for('message_view'))
+    return render_template('signup_family.html')
 
 
 
