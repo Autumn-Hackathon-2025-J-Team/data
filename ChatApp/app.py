@@ -135,8 +135,10 @@ def login_process():
             if hashPassword != user["password"]:
                 flash('パスワードが間違っています！')
             else:
-                session['id'] = user["id"]
-                session['fid'] = user["family_id"]
+                session['user_id'] = user["id"]
+                session['family_id'] = user["family_id"]
+                session['family_name'] = user["family_name"]
+                session['is_admin'] = bool(user['is_admin'])
                 return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return redirect(url_for('login_view'))
 
