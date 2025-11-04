@@ -2,8 +2,14 @@
 
 {% block content %}
 
-<div class="icon">
-    <img src="../static/img/image_お皿.png">
+<body>
+    <div class="container">
+        <img src="../static/img/image_アプリ名.png">
+    </div>
+      
+    <div class="icon">
+        <img src="../static/img/image_お皿.png">
+
         <p>ファミリーチャットに入る場合はこちらから！</p>
             <button>
                 <a href="{{ url_for('login_view') }}">ログイン</a>
@@ -13,7 +19,8 @@
             <button>
                 <a href="{{ url_for('signup_view') }}">新規登録</a>
             </button>            
-</div>
+    </div>
+</body>
 {% endblock %}
 
 
