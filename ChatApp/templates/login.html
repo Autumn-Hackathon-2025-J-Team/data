@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content % }
+
+<body>
+    <div class="container">
+        <img src="../static/img/image_アプリ名.png">
+    </div>
+
+    <h1>ログイン</h1> 
+
+    <div class="icon">
+        <img src="../static/img/image_お皿.png">
+
+    <form class="login-form" method="post">
+        
+        <div>
+            <label for="email-input">Email</label>
+            <input type="text" placeholder="Email" name="email" id="email-input" />
+        </div>
+        <div>
+            <label for="password-input">Password</label>
+            <input type="password" placeholder="Password" name="password" id="password-input" />
+        </div>
+
+        <button>
+            <a href="{{ url_for('login_view') }}">ログイン</a>
+        </button>
+       
+        
+
+
+    </div>
+</body>
+{% endblock %}

@@ -2,18 +2,23 @@
 
 {% block content %}
 
-<div class="icon">
-    <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="お皿の写真">
+<body>
+    <div class="container">
+        <img src="../static/img/image_アプリ名.png">
+    </div>
+
+    <div class="icon">
+        <img src="../static/img/image_お皿.png">
+
         <p>ファミリーチャットに入る場合はこちらから！</p>
-            <button>
-                <a href="{{ url_for('login_view') }}">ログイン</a>
-            </button>
-    
+        <button>
+            <a href="{{ url_for('login_view') }}">ログイン</a>
+        </button>
+
         <p>新規のファミリーチャット作成はこちらから！</p>
-            <button>
-                <a href="{{ url_for('signup_view') }}">新規登録</a>
-            </button>            
-</div>
+        <button>
+            <a href="{{ url_for('signup_view') }}">新規登録</a>
+        </button>
+    </div>
+</body>
 {% endblock %}
-
-
