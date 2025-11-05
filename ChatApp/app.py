@@ -37,7 +37,7 @@ def signup_view():
 # サインアップ処理：管理者ユーザ
 @app.route('/signup', methods=['POST'])
 def signup_process():
-    user_name = request.form.get('user_name')  # 実際のhtmlフォームのラベル名に基づく
+    user_name = request.form.get('user_name')
     email = request.form.get('email')
     password = request.form.get('password')
     family_name = request.form.get('family_name')
@@ -65,9 +65,13 @@ def signup_process():
         else:
             User.create(user_id, user_name, email, password, True, family_id, family_name)
             UserID = str(user_id)
+            FamilyID = str(family_id)
+            # idをstring型にしてからセッションに保持
             session['user_id'] = UserID
-            # user_idをstring型にしてからセッションに保持
-            return redirect(url_for('index')) #indexは仮でmessage_viewが完成したら差し替え
+            session['family_id'] = FamilyID
+            session['family_name'] = family_name
+            session['is_admin'] = True
+            return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return redirect(url_for('signup_process'))
 
 
@@ -77,8 +81,37 @@ def signup_family_view():
     is_admin = session.get('is_admin')
     if is_admin == False:
         flash('管理者ユーザーのみ利用可能な機能です')
-        return redirect(url_for('message_view'))
+        return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return render_template('signup_family.html')
+
+
+# サインアップ処理：家族ユーザ
+@app.route('/signup/family', methods=['POST'])
+def signup_family_process():
+    user_name = request.form.get('user_name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    FamilyID = session.get('family_id') # 管理者ユーザのfamily_idを取得する
+    family_name = session.get('family_name') # 管理者ユーザのfamily_nameを取得する
+
+    if user_name == '' or email == '' or password == '':
+        flash('空のフォームがあります')
+    elif re.match(EMAIL_PATTERN, email)is None:
+        flash('メールアドレスの形式が正しくありません')
+    else:
+        user_id = uuid.uuid4()
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        registered_user = User.find_by_email(email)
+
+        if registered_user != None:
+           flash('そのメールアドレスは既に登録されています')
+        else:
+            User.create(user_id, user_name, email, password, False, FamilyID, family_name)
+            UserID = str(user_id)
+            session['user_id'] = UserID
+            return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+    return redirect(url_for('signup_family_process'))
+
 
 # ログインページの表示
 @app.route('/login', methods=['GET'])
@@ -102,9 +135,11 @@ def login_process():
             if hashPassword != user["password"]:
                 flash('パスワードが間違っています！')
             else:
-                session['id'] = user["id"]
-                session['fid'] = user["family_id"]
-                return redirect(url_for('messages_view'))
+                session['user_id'] = user["id"]
+                session['family_id'] = user["family_id"]
+                session['family_name'] = user["family_name"]
+                session['is_admin'] = bool(user['is_admin'])
+                return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return redirect(url_for('login_view'))
 
 # ログアウト
@@ -142,7 +177,6 @@ def messages_view():
     messages = Message.get_all(fid)
 
     return redirect('/<family_id>/messages')
-
 
 
 if __name__ == '__main__':
