@@ -24,8 +24,8 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 def index():
   user_id = session.get('user_id')
   if user_id is None:
-    return render_template('top.html')
-  return render_template('top.html') # メッセージ処理が完成したら redirect(url_for('message_view')) に差し替え
+    return render_template('index.html')
+  return render_template('index.html') # メッセージ処理が完成したら redirect(url_for('message_view')) に差し替え
 
 
 # サインアップページの表示：管理者ユーザ
@@ -79,7 +79,7 @@ def signup_process():
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
     is_admin = session.get('is_admin')
-    if is_admin == False:
+    if is_admin is not True:
         flash('管理者ユーザーのみ利用可能な機能です')
         return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return render_template('signup_family.html')
