@@ -29,7 +29,8 @@
                     <label for="family_name-input">家族の名前</label>
                     <input type="text" name="family_name" id="family_name-input" />
                 </div>
-                < class="auth-button-container">
+                <div class="auth-button-container">
+
                     {% with messages = get_flashed_messages() %} {% if messages %}
                     <ul class="flashes">
                         {% for message in messages %}
@@ -37,8 +38,9 @@
                         {% endfor %}
                     </ul>
                     {% endif %} {% endwith %}
-
-                    <button class="auth-button " type="submit">管理者ID作成</button>
+                    
+                    <button class="auth-button" type="submit">管理者ID作成</button>
+                </div>
         </form>
     </div>
 </div>

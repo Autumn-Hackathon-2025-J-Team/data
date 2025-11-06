@@ -21,16 +21,20 @@
                 <label for="password-input">パスワード</label>
                 <input type="password" placeholder="Password" name="password" id="password-input" />
             </div>
-            < class="auth-button-container">
-            {% with messages = get_flashed_messages() %} {% if messages %}
-            <ul class="flashes">
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %} {% endwith %}
             
-            <button class="auth-button " type="submit">ログイン</button> 
+            <div class="auth-button-container">
+
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %} {% endwith %}
+                
+                <button class="auth-button " type="submit">ログイン</button>
+            </div>
+        
         </form>     
     </div>  
 </div>
