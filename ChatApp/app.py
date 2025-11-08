@@ -25,7 +25,7 @@ def index():
   user_id = session.get('user_id')
   if user_id is None:
     return render_template('index.html')
-  return render_template('index.html') # メッセージ処理が完成したら redirect(url_for('message_view')) に差し替え
+  return render_template('messages_view')
 
 
 # サインアップページの表示：管理者ユーザ
@@ -71,7 +71,7 @@ def signup_process():
             session['family_id'] = FamilyID
             session['family_name'] = family_name
             session['is_admin'] = True
-            return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+            return redirect(url_for('messages_view'))
     return redirect(url_for('signup_process'))
 
 
@@ -81,7 +81,7 @@ def signup_family_view():
     is_admin = session.get('is_admin')
     if is_admin is not True:
         flash('管理者ユーザーのみ利用可能な機能です')
-        return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+        return redirect(url_for('messages_view'))
     return render_template('signup_family.html')
 
 
@@ -109,7 +109,7 @@ def signup_family_process():
             User.create(user_id, user_name, email, password, False, FamilyID, family_name)
             UserID = str(user_id)
             session['user_id'] = UserID
-            return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+            return redirect(url_for('messages_view'))
     return redirect(url_for('signup_family_process'))
 
 
@@ -137,9 +137,8 @@ def login_process():
             else:
                 session['user_id'] = user["id"]
                 session['family_id'] = user["family_id"]
-                session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user['is_admin'])
-                return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+                return redirect(url_for('messages_view'))
     return redirect(url_for('login_view'))
 
 # ログアウト
