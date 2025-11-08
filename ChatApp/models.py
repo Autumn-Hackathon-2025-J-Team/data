@@ -64,12 +64,32 @@ class User:
 # メッセージクラス
 class Message:
   @classmethod
-  def get_all(fid):
+  def create(cls, use_id, message):
       conn = db_pool.get_conn()
       try:
           with conn.cursor() as cur:
-              sql = "SELECT * FROM messages WHERE user_id in (SELECT id FROM uses WHERE family_id = %s);"
-              cur.execute(sql, (fid,))
+              sql = "INSERT INTO messages(user_id, content) VALUES(%s, %s)"
+              cur.execute(sql, (use_id, message,))
+              conn.commit()
+      except pymysql.Error as e:
+          print(f'エラーが発生しています:{e}')
+          abort(500)
+      finally:
+          db_pool.release(conn)
+           
+  @classmethod
+  def get_all(cls, family_id):
+      conn = db_pool.get_conn()
+      try:
+          with conn.cursor() as cur:
+              sql = """
+                  SELECT m.id, m.user_id, content
+                  FROM messages AS m 
+                  INNER JOIN users AS u ON m.user_id = u.user_id 
+                  WHERE family_id = %s
+                  ODER BY m.id ASC;
+                  """
+              cur.execute(sql, (family_id,))
               messages = cur.fetchall()
               return messages
       except pymysql.Error as e:
