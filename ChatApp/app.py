@@ -5,7 +5,7 @@ import os
 import re
 import hashlib
 
-from models import User, Message
+from models import User, Message, Menu
 
 # 定数定義
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -23,9 +23,11 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 @app.route('/', methods=['GET'])
 def index():
   user_id = session.get('user_id')
+  family_id = session.get('family__id')
+
   if user_id is None:
-    return render_template('top.html')
-  return render_template('top.html') # メッセージ処理が完成したら redirect(url_for('message_view')) に差し替え
+    return render_template('index.html')
+  return redirect(url_for('messages_view', family_id=family_id))
 
 
 # サインアップページの表示：管理者ユーザ
@@ -66,8 +68,10 @@ def signup_process():
             User.create(user_id, user_name, email, password, True, family_id, family_name)
             UserID = str(user_id)
             session['user_id'] = UserID
-            # user_idをstring型にしてからセッションに保持
-            return redirect(url_for('index')) #indexは仮でmessage_viewが完成したら差し替え
+            session['family_id'] = FamilyID
+            session['family_name'] = family_name
+            session['is_admin'] = True
+            return redirect(url_for('messages_view'))
     return redirect(url_for('signup_process'))
 
 
@@ -77,8 +81,37 @@ def signup_family_view():
     is_admin = session.get('is_admin')
     if is_admin == False:
         flash('管理者ユーザーのみ利用可能な機能です')
-        return redirect(url_for('message_view'))
+        return redirect(url_for('messages_view'))
     return render_template('signup_family.html')
+
+
+# サインアップ処理：家族ユーザ
+@app.route('/signup/family', methods=['POST'])
+def signup_family_process():
+    user_name = request.form.get('user_name')
+    email = request.form.get('email')
+    password = request.form.get('password')
+    family_id = session.get('family_id') # 管理者ユーザのfamily_idを取得する
+    family_name = session.get('family_name') # 管理者ユーザのfamily_nameを取得する
+
+    if user_name == '' or email == '' or password == '':
+        flash('空のフォームがあります')
+    elif re.match(EMAIL_PATTERN, email)is None:
+        flash('メールアドレスの形式が正しくありません')
+    else:
+        user_id = uuid.uuid4()
+        password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+        registered_user = User.find_by_email(email)
+
+        if registered_user != None:
+           flash('そのメールアドレスは既に登録されています')
+        else:
+            User.create(user_id, user_name, email, password, False, family_id, family_name)
+            UserID = str(user_id)
+            session['user_id'] = UserID
+            return redirect(url_for('messages_view'))
+    return redirect(url_for('signup_family_process'))
+
 
 # ログインページの表示
 @app.route('/login', methods=['GET'])
@@ -108,9 +141,8 @@ def login_process():
                 return redirect(url_for('messages_view'))
                 session['user_id'] = user["id"]
                 session['family_id'] = user["family_id"]
-                session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user['is_admin'])
-                return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
+                return redirect(url_for('messages_view'))
     return redirect(url_for('login_view'))
 
 # ログアウト
@@ -136,8 +168,8 @@ def create_message():
     return redirect('/<family_id>/messages')
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
-@app.route('/<family_id>/messages', methods=['GRT'])
-def messages_view():
+@app.route('/<family_id>/messages', methods=['GET'])
+def messages_view(family_id):
     id = session.get('id')
     fid = session.get('fid')
 
@@ -151,19 +183,33 @@ def messages_view():
 
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
-def decide_view():
+def decide_view(family_id):
     is_admin = session.get('is_admin')
 
     # 権限がない場合はメッセージ一覧画面に遷移
     if not is_admin:
-        return redirect(url_for('/<family_id>/messages'))
+        return redirect('{family_id}/messages'.format(family_id = family_id))
 
     return redirect(url_for('/<family_id>/messages/decide'))
 
 # ごはん決定処理
 @app.route('/<family_id>/decide', method=['POST'])
-def decide_menu():
+def decide_menu(family_id):
     is_admin = session.get('is_admin')
+    
+    # 権限がない場合はメッセージ一覧画面に遷移
+    if not is_admin:
+        return redirect('{family_id}/messages'.format(family_id = family_id))
+    menu = request.form.get('menu')
+    user_id = session.get('user_id')
+    family_name = session.get('family_name')
+    messages = f'今日のご飯は{menu}に決定！'
+    Message.create(user_id, messages)
+    Menu.create(user_id, menu)
+
+    return render_template('chat_top.html', family_id = family_id, family_name = family_name)
+
+
 
 
 
