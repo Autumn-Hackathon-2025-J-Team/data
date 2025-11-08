@@ -6,9 +6,11 @@
 {% block body %}
 <div class="auth-wrapper">
     <div class="auth-container">
-    <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
-    
-       <form class="auth-form" method="post">
+        <a href="javascript:history.back()" class="back-button">
+            <img src="{{ url_for('static', filename='img/image_戻る.png') }}">
+        </a>
+        <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
+        <form class="auth-form" method="post">
             <h1 class="auth-title">ログイン</h1>
 
             <div class="auth-logo">

@@ -19,12 +19,37 @@
     max-width: 450px;
     width: 100%;
     text-align: center;
+    position: relative;
 }
 
 .auth-container>img {
     max-width: 400px;
     height: auto;
     margin-bottom: 30px;
+}
+
+.back-button {
+    position: absolute;
+    /* 親要素（auth-container）に対して絶対位置指定 */
+    top: 15px;
+    /* 上からの位置（auth-containerのpaddingを考慮して調整） */
+    right: 15px;
+    /* 右からの位置（auth-containerのpaddingを考慮して調整） */
+    z-index: 1000;
+    /* 他の要素の上に表示されるように */
+    display: block;
+}
+
+.back-button img {
+    width: 25px;
+    /* 画像のサイズを調整 */
+    height: auto;
+    display: block;
+}
+
+.back-button:hover {
+    opacity: 0.7;
+    /* ホバー時に少し透明にする */
 }
 
 .auth-title {
