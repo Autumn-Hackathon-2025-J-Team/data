@@ -2,12 +2,11 @@
 
 
 /* ========================== ヘッダー部分 ============================= */
-#chat-header{
-    background-color: azure;
-
+#chat-header {
+    background-color:azure;
 }
 
-#chat-main{
-    background-color: orange;
-
+#chat-main {
+    background-color:orange;
 }
+
