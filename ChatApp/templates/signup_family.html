@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>signup_family</title>
+{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
+
+        <form class="auth-form" method="post">
+            <h1 class="auth-title">家族アカウント作成</h1>
+
+            <div class="auth-logo">
+                <img src="{{ url_for('static', filename='img/image_お皿.png') }}">
+                <div>
+                    <label for="email-input">メールアドレス</label>
+                    <input type="text" placeholder="Email" name="email" id="email-input" />
+                </div>
+                <div>
+                    <label for="password-input">パスワード</label>
+                    <input type="password" placeholder="Password" name="password" id="password-input" />
+                </div>
+                <div>
+                    <label for="user_name-input">ユーザー名</label>
+                    <input type="text" name="user_name" id="user_name-input" />
+                </div>
+                
+                <div class="auth-button-container">
+
+                    {% with messages = get_flashed_messages() %} {% if messages %}
+                    <ul class="flashes">
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %} {% endwith %}
+                    
+                    <button class="auth-button " type="submit">家族アカウントを作成</button>
+                </div>
+            </div>    
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -106,6 +106,11 @@ def login_process():
                 session['fid'] = user["family_id"]
                 session['is_admin'] = user["is_admin"]
                 return redirect(url_for('messages_view'))
+                session['user_id'] = user["id"]
+                session['family_id'] = user["family_id"]
+                session['family_name'] = user["family_name"]
+                session['is_admin'] = bool(user['is_admin'])
+                return redirect(url_for('index')) #indexは仮でmessages_viewが完成したら差し替え
     return redirect(url_for('login_view'))
 
 # ログアウト
@@ -159,8 +164,6 @@ def decide_view():
 @app.route('/<family_id>/decide', method=['POST'])
 def decide_menu():
     is_admin = session.get('is_admin')
-    if is_admin:
-        
 
 
 

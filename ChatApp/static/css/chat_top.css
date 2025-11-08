@@ -1,0 +1,13 @@
+/*チャット画面のCSS */
+
+
+/* ========================== ヘッダー部分 ============================= */
+#chat-header{
+    background-color: azure;
+
+}
+
+#chat-main{
+    background-color: orange;
+
+}

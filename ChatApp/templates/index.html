@@ -1,26 +1,23 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-container"> <!-- ここにauth-containerを追加！ -->
+        <div class="container">
+            <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
+        </div>
 
-<body>
-    <div class="container">
-        <img src="../static/img/image_アプリ名.png">
-    </div>
-      
-    <div class="icon">
-        <img src="../static/img/image_お皿.png">
-
-        <p>ファミリーチャットに入る場合はこちらから！</p>
+        <div class="icon">
+            <img src="{{ url_for('static', filename='img/image_お皿.png') }}">
+            <p class="description">ファミリーチャットに<br>入る場合はこちらから！</p>
             <button>
                 <a href="{{ url_for('login_view') }}">ログイン</a>
             </button>
-    
-        <p>新規のファミリーチャット作成はこちらから！</p>
-            <button>
+            <p class="description">新規のファミリーチャット<br>作成はこちらから！</p>
+            <button class="white-button">
                 <a href="{{ url_for('signup_view') }}">新規登録</a>
-            </button>            
-    </div>
-</body>
+            </button>
+        </div>
+    </div> <!-- auth-containerの閉じタグも忘れずに！ -->
+</div>
 {% endblock %}
-
-
