@@ -166,8 +166,8 @@ def create_message():
     return redirect('/<family_id>/messages')
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
-@app.route('/<family_id>/messages', methods=['GET'])
-def messages_view(family_id):
+@app.route('chat_top.html', methods=['GET'])
+def messages_view():
     id = session.get('id')
     fid = session.get('fid')
 
