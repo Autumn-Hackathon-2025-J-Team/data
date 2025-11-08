@@ -104,6 +104,7 @@ def login_process():
             else:
                 session['id'] = user["id"]
                 session['fid'] = user["family_id"]
+                session['is_admin'] = user["is_admin"]
                 return redirect(url_for('messages_view'))
     return redirect(url_for('login_view'))
 
@@ -142,6 +143,25 @@ def messages_view():
     messages = Message.get_all(fid)
 
     return redirect('/<family_id>/messages')
+
+# ごはん決定画面の表示
+@app.route('/<family_id>/messages/decide', methods=['GET'])
+def decide_view():
+    is_admin = session.get('is_admin')
+
+    # 権限がない場合はメッセージ一覧画面に遷移
+    if not is_admin:
+        return redirect(url_for('/<family_id>/messages'))
+
+    return redirect(url_for('/<family_id>/messages/decide'))
+
+# ごはん決定処理
+@app.route('/<family_id>/decide', method=['POST'])
+def decide_menu():
+    is_admin = session.get('is_admin')
+    if is_admin:
+        
+
 
 
 
