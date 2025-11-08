@@ -23,9 +23,11 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 @app.route('/', methods=['GET'])
 def index():
   user_id = session.get('user_id')
+  family_id = session.get('family__id')
+
   if user_id is None:
     return render_template('index.html')
-  return render_template('messages_view')
+  return redirect(url_for('messages_view', family_id=family_id))
 
 
 # サインアップページの表示：管理者ユーザ
@@ -91,7 +93,7 @@ def signup_family_process():
     user_name = request.form.get('user_name')
     email = request.form.get('email')
     password = request.form.get('password')
-    FamilyID = session.get('family_id') # 管理者ユーザのfamily_idを取得する
+    family_id = session.get('family_id') # 管理者ユーザのfamily_idを取得する
     family_name = session.get('family_name') # 管理者ユーザのfamily_nameを取得する
 
     if user_name == '' or email == '' or password == '':
@@ -106,7 +108,7 @@ def signup_family_process():
         if registered_user != None:
            flash('そのメールアドレスは既に登録されています')
         else:
-            User.create(user_id, user_name, email, password, False, FamilyID, family_name)
+            User.create(user_id, user_name, email, password, False, family_id, family_name)
             UserID = str(user_id)
             session['user_id'] = UserID
             return redirect(url_for('messages_view'))
@@ -165,8 +167,8 @@ def create_message(family_id):
     return redirect('/{family_id}/messages'.format(family_id=family_id))
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
-@app.route('/<family_id>/messages', methods=['GRT'])
-def messages_view(family_id):
+@app.route('/<family_id>/messages', methods=['GET'])
+def messages_view(family_idfamily_id):
     user_id = session.get('use_id')
     family_id = session.get('family_id')
 
