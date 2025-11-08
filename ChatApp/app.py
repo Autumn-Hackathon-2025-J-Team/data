@@ -23,9 +23,11 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 @app.route('/', methods=['GET'])
 def index():
   user_id = session.get('user_id')
+  family_id = session.get('family__id')
+
   if user_id is None:
     return render_template('index.html')
-  return redirect(url_for('messages_view', family_id=session.get('family_id')))
+  return redirect(url_for('messages_view', family_id=family_id))
 
 
 # サインアップページの表示：管理者ユーザ
