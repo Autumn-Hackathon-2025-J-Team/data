@@ -79,5 +79,3 @@ class Message:
           db_pool.release(conn)          
           
 # ヒストリークラス
-class History:
-  
