@@ -1,10 +1,11 @@
 .container {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    
 }
 
 .container img {
-    max-width: 100%;
+    max-width: 80%;
     height: auto;
     display: block;
     margin: 0 auto;
@@ -20,12 +21,14 @@
     height: auto;
     display: block;
     margin: 0 auto;
+    margin-bottom: 40px;
 }
 
 .description {
-    font-size: 1rem;
+    font-size: 1.2rem;
     text-align: center;
     margin: 0 0 20px;
+    margin-bottom: 40px;
 }
 
 button {
@@ -37,6 +40,8 @@ button {
     margin-bottom: 10px;
     display: block;
     margin: 0 auto 10px auto;  
+    width: 250px;
+    margin-bottom: 40px;
 }
 
 button a {
@@ -74,4 +79,40 @@ button:hover {
 .white-button:hover {
     background-color: #e9ecef;
     border-color: orangered;    
+}
+
+/* --- 携帯画面用のスタイル（max-width: 768px以下の場合に適用） --- */
+@media screen and (max-width: 768px) {
+
+    /* index.html 固有の要素の調整 */
+    .container {
+        margin-bottom: 15px;
+    }
+
+    .container img {
+        max-width: 90%;
+    }
+
+    .icon {
+        margin-bottom: 30px;
+    }
+
+    .icon img {
+        max-width: 180px;
+    }
+
+    .description {
+        font-size: 0.9rem;
+        margin: 0 10px 15px;
+    }
+
+    button {
+        margin: 0 auto 8px auto;
+    }
+
+    button a,
+    .white-button a {
+        padding: 8px 15px;
+        font-size: 14px;
+    }
 }
