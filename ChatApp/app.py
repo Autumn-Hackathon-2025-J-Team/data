@@ -141,7 +141,8 @@ def login_process():
                 return redirect(url_for('messages_view'))
                 session['user_id'] = user["id"]
                 session['family_id'] = user["family_id"]
-                session['is_admin'] = bool(user['is_admin'])
+                session['family_name'] = user["family_name"]
+                session['is_admin'] = bool(user["is_admin"])
                 return redirect(url_for('messages_view'))
     return redirect(url_for('login_view'))
 
@@ -153,33 +154,34 @@ def logout():
 
 # メッセージの投稿
 @app.route('/<family_id>/messages', methods=['POST'])
-def create_message():
-    id = session.get('id')
+def create_message(family_id):
+    use_id = session.get('user_id')
 
     # ユーザーidが取得できない場合はログイン画面へ遷移
-    if id is None:
+    if use_id is None:
         return redirect(url_for('login_view'))
     
     message = request.form.get('message')
 
     if message:
-        Message.create(id, message)
+        Message.create(use_id, message)
 
-    return redirect('/<family_id>/messages')
+    return redirect('/{family_id}/messages'.format(family_id=family_id))
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
 @app.route('/<family_id>/messages', methods=['GET'])
-def messages_view(family_id):
-    id = session.get('id')
-    fid = session.get('fid')
+def messages_view(family_idfamily_id):
+    user_id = session.get('use_id')
+    family_id = session.get('family_id')
 
     # ユーザーidが取得できない場合はログイン画面へ遷移
-    if id is None:
+    if user_id is None:
         return redirect(url_for('login_view'))
     
-    messages = Message.get_all(fid)
+    messages = Message.get_all(family_id)
+    family_name = session.get('family_name')
 
-    return redirect('/<family_id>/messages')
+    return redirect('chat_top.html', messages=messages, family_name=family_name)
 
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
