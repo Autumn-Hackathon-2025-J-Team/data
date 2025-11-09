@@ -3,11 +3,28 @@
 
 /* ========================== ヘッダー部分 ============================= */
 #chat-header{
-    background-color:orange;
+    display:flex;
+    flex-direction: ;
+    justify-content: space-between;
+    background-color:white;
+    position:sticky;
 
 }
 
 #chat-main{
-    background-color: orange;
+    background-color:#ffd699;
 
+}
+
+ul{
+    list-style-type: none;
+}
+
+.message-type-area{
+    position:fixed;
+}
+
+
+button:hover{
+    background-color: lightgray;
 }
