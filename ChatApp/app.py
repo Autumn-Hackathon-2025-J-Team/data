@@ -5,7 +5,7 @@ import os
 import re
 import hashlib
 
-from models import User, Message
+from models import User, Message, Menu
 
 # 定数定義
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -39,7 +39,7 @@ def signup_view():
 # サインアップ処理：管理者ユーザ
 @app.route('/signup', methods=['POST'])
 def signup_process():
-    user_name = request.form.get('user_name')
+    user_name = request.form.get('user_name')  # 実際のhtmlフォームのラベル名に基づく
     email = request.form.get('email')
     password = request.form.get('password')
     family_name = request.form.get('family_name')
@@ -67,8 +67,6 @@ def signup_process():
         else:
             User.create(user_id, user_name, email, password, True, family_id, family_name)
             UserID = str(user_id)
-            FamilyID = str(family_id)
-            # idをstring型にしてからセッションに保持
             session['user_id'] = UserID
             session['family_id'] = FamilyID
             session['family_name'] = family_name
@@ -81,7 +79,7 @@ def signup_process():
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
     is_admin = session.get('is_admin')
-    if is_admin is not True:
+    if is_admin == False:
         flash('管理者ユーザーのみ利用可能な機能です')
         return redirect(url_for('messages_view'))
     return render_template('signup_family.html')
@@ -137,6 +135,10 @@ def login_process():
             if hashPassword != user["password"]:
                 flash('パスワードが間違っています！')
             else:
+                session['id'] = user["id"]
+                session['fid'] = user["family_id"]
+                session['is_admin'] = user["is_admin"]
+                return redirect(url_for('messages_view'))
                 session['user_id'] = user["id"]
                 session['family_id'] = user["family_id"]
                 session['family_name'] = user["family_name"]
@@ -179,7 +181,39 @@ def messages_view(family_idfamily_id):
     messages = Message.get_all(family_id)
     family_name = session.get('family_name')
 
-    return render_template('chat_top.html', messages=messages, family_name=family_name)
+    return redirect('chat_top.html', messages=messages, family_name=family_name)
+
+# ごはん決定画面の表示
+@app.route('/<family_id>/messages/decide', methods=['GET'])
+def decide_view(family_id):
+    is_admin = session.get('is_admin')
+
+    # 権限がない場合はメッセージ一覧画面に遷移
+    if not is_admin:
+        return redirect('{family_id}/messages'.format(family_id = family_id))
+
+    return redirect(url_for('/<family_id>/messages/decide'))
+
+# ごはん決定処理
+@app.route('/<family_id>/decide', method=['POST'])
+def decide_menu(family_id):
+    is_admin = session.get('is_admin')
+    
+    # 権限がない場合はメッセージ一覧画面に遷移
+    if not is_admin:
+        return redirect('{family_id}/messages'.format(family_id = family_id))
+    menu = request.form.get('menu')
+    user_id = session.get('user_id')
+    family_name = session.get('family_name')
+    messages = f'今日のご飯は{menu}に決定！'
+    Message.create(user_id, messages)
+    Menu.create(user_id, menu)
+
+    return render_template('chat_top.html', family_id = family_id, family_name = family_name)
+
+
+
+
 
 
 if __name__ == '__main__':
