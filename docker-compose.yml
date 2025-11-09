@@ -37,7 +37,7 @@ services:
       # リトライ回数は3回
       retries: 3
       # ヘルスチェックが失敗しても無視する時間は30秒
-      start_period: 30s
+      start_period: 90s
 
   app:
     # コンテナ名をFlaskに設定
