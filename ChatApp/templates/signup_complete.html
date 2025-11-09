@@ -23,8 +23,7 @@
 
             <!-- 1つ目のボタン -->
             <button>
-                <a href="{{ url_for('messages_view', family_id=current_user.family_id) }}">チャットルーム<br>へ移動</a>
-                <!-- messages_viewにはfamily_idが必要になる -->
+                <a href="{{ url_for('messages_view', family_id=family_id) }}">チャットルーム<br>へ移動</a>
             </button>
 
             <!-- 2つ目のボタン -->
