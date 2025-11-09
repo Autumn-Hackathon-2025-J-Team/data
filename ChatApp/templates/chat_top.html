@@ -5,34 +5,37 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>チャット画面top</title>
-        <link rel="stylesheet" href="chat_top.css">
+        <link rel="stylesheet" href="../static/css/chat_top.css"/>
     </head>
-    <!--headとjinja2{}base.htmlからhead情報を持ってくる？-->
 
     <body>
         <!--ヘッダー情報-->
         <header id="chat-header">
             <image src="../static/img/image_お皿.png"alt="アプリのアイコン画像">
-            <h3>チャットアプリ名→DBで記録された家族名をもってくる？jinja？</h3>
-            <a href=""><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+            <p class="chat-name">{{ users.family_name }}</p>
+            <a href="chat_menu.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
         </header>
 
         <!--チャット送信機能／チャット履歴を表すエリア-->
         <main id="chat-main">
             <!--チャット履歴表示画面-->
-            <div class="message">
-                <p>あああ</p>
-                <p>いいい</p>
-            </div>
+            <p class="user-name">{{ users.user_name}}</p>
+            <ul class="message">
+                {% for message in messages}
+                    <li>{{ messages.content}}</li>
+                {% endfor %}
+            </ul>
 
 
             <!--チャット送信機能-->
-            <form action="{{ url_for( 'create_messages', family_id=Family_id )}}" method=POST>
-                <textarea placeholder="文字を入力する"></textarea>
-                <button type="submit" name="button"value="blank">
-                    <form>　</form>
-                </button>
-            </form>
+            <div class="message-type-area">
+                <form action="{{ url_for( 'create_messages', family_id=Family_id )}}" method=POST>
+                    <textarea placeholder="文字を入力する"></textarea>
+                    <button type="submit" name="button"value="blank">
+                        <form>　</form>
+                    </button>
+                </form>
+            </div>
             
         </main>
 
