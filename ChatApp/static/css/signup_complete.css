@@ -1,0 +1,55 @@
+.container {
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+
+.container img {
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.icon {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.icon img {
+    max-width: 250px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+button {
+    background-color: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0;
+    display: block;
+    margin: 0 auto 10px auto;
+    width: 250px;
+    margin-bottom: 40px;
+    
+}
+
+button a {
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
+/* ホバー時のスタイル（任意で設定） */
+button:hover {
+    background-color: #e0e0e0;
+    /* ホバー時に少し濃い灰色にするなど */
+    /* color: #333; */
+    /* 文字色も変えるなら */
+}
