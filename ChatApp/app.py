@@ -39,7 +39,7 @@ def signup_view():
 # サインアップ処理：管理者ユーザ
 @app.route('/signup', methods=['POST'])
 def signup_process():
-    user_name = request.form.get('user_name')  # 実際のhtmlフォームのラベル名に基づく
+    user_name = request.form.get('user_name')
     email = request.form.get('email')
     password = request.form.get('password')
     family_name = request.form.get('family_name')
@@ -67,6 +67,8 @@ def signup_process():
         else:
             User.create(user_id, user_name, email, password, True, family_id, family_name)
             UserID = str(user_id)
+            FamilyID = str(family_id)
+            # idをstring型にしてからセッションに保持
             session['user_id'] = UserID
             session['family_id'] = FamilyID
             session['family_name'] = family_name
@@ -79,7 +81,7 @@ def signup_process():
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
     is_admin = session.get('is_admin')
-    if is_admin == False:
+    if is_admin is not True:
         flash('管理者ユーザーのみ利用可能な機能です')
         return redirect(url_for('messages_view'))
     return render_template('signup_family.html')
@@ -135,15 +137,12 @@ def login_process():
             if hashPassword != user["password"]:
                 flash('パスワードが間違っています！')
             else:
-                session['id'] = user["id"]
-                session['fid'] = user["family_id"]
-                session['is_admin'] = user["is_admin"]
-                return redirect(url_for('messages_view'))
                 session['user_id'] = user["id"]
                 session['family_id'] = user["family_id"]
                 session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user["is_admin"])
                 return redirect(url_for('messages_view'))
+               
     return redirect(url_for('login_view'))
 
 # ログアウト
