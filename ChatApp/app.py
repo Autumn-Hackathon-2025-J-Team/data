@@ -23,7 +23,7 @@ app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 @app.route('/', methods=['GET'])
 def index():
   user_id = session.get('user_id')
-  family_id = session.get('family__id')
+  family_id = session.get('family_id')
 
   if user_id is None:
     return render_template('index.html')
@@ -73,7 +73,7 @@ def signup_process():
             session['family_id'] = FamilyID
             session['family_name'] = family_name
             session['is_admin'] = True
-            return redirect(url_for('messages_view'))
+            return redirect(url_for('signup_complete_view'))
     return redirect(url_for('signup_process'))
 
 
@@ -113,6 +113,16 @@ def signup_family_process():
             session['user_id'] = UserID
             return redirect(url_for('messages_view'))
     return redirect(url_for('signup_family_process'))
+
+
+# サインアップ完了画面
+@app.route('/signup/complete', methods=['GET'])
+def signup_complete_view():
+    user_id = session.get('user_id')
+
+    if user_id is None:
+        return redirect(url_for('login_view')) 
+    return render_template('signup_complete.html')
 
 
 # ログインページの表示
