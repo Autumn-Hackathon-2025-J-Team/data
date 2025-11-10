@@ -5,7 +5,7 @@ import os
 import re
 import hashlib
 
-from models import User, Message, Menu
+from models import User, Message, Histories
 
 # 定数定義
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -178,7 +178,7 @@ def create_message(family_id):
     return redirect('/{family_id}/messages'.format(family_id=family_id))
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
-@app.route('chat_top.html', methods=['GET'])
+@app.route('/chattop', methods=['GET'])
 def messages_view():
     user_id = session.get('use_id')
     family_id = session.get('family_id')
@@ -190,8 +190,9 @@ def messages_view():
     messages = Message.get_all(family_id)
     family_name = session.get('family_name')
 
-    return redirect('chat_top.html', messages=messages, family_name=family_name)
-
+ #   return redirect('chat_top.html', messages=messages, family_name=family_name)
+    return render_template('chat_top.html', messages=messages, family_name=family_name)
+    
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
 def decide_view(family_id):
@@ -204,6 +205,7 @@ def decide_view(family_id):
     return redirect(url_for('/<family_id>/messages/decide'))
 
 # ごはん決定処理
+"""
 @app.route('/<family_id>/decide', method=['POST'])
 def decide_menu(family_id):
     is_admin = session.get('is_admin')
@@ -216,11 +218,11 @@ def decide_menu(family_id):
     family_name = session.get('family_name')
     messages = f'今日のご飯は{menu}に決定！'
     Message.create(user_id, messages)
-    Menu.create(user_id, menu)
+    Histories.create(user_id, menu)
 
     return render_template('chat_top.html', family_id = family_id, family_name = family_name)
 
-
+"""
 
 
 

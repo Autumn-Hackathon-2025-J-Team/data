@@ -85,9 +85,9 @@ class Message:
               sql = """
                   SELECT m.id, m.user_id, content
                   FROM messages AS m 
-                  INNER JOIN users AS u ON m.user_id = u.user_id 
+                  LEFT JOIN users AS u ON m.user_id = u.id 
                   WHERE family_id = %s
-                  ODER BY m.id ASC;
+                  ORDER BY m.id ASC;
                   """
               cur.execute(sql, (family_id,))
               messages = cur.fetchall()
