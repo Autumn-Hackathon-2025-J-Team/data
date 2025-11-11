@@ -24,6 +24,15 @@
     margin-bottom: 40px;
 }
 
+.description {
+    font-size: 1.8rem;
+    text-align: center;
+    margin: 0 0 20px;
+    margin-bottom: 40px;
+    color: orangered;
+    
+}
+
 button {
     background-color: #f0f0f0;
     border: none;
@@ -46,10 +55,29 @@ button a {
     text-align: center;
 }
 
-/* ホバー時のスタイル（任意で設定） */
-button:hover {
-    background-color: #e0e0e0;
-    /* ホバー時に少し濃い灰色にするなど */
-    /* color: #333; */
-    /* 文字色も変えるなら */
+/* 携帯画面用のメディアクエリ */
+@media screen and (max-width: 768px) {
+    .container img {
+        max-width: 90%;        
+    }
+
+    .icon img {
+        max-width: 180px;        
+    }
+
+    .description {
+        font-size: 1rem;
+        margin-bottom: 20px;
+
+    }
+
+    button {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+
+    button a {
+        padding: 8px 15px;
+        font-size: 14px;       
+    }
 }
