@@ -19,15 +19,17 @@ app.secret_key = os.getenv('SECRET_KEY', uuid.uuid4().hex)
 # 第二引数は環境変数が存在しないときに返すデフォルト値で、uuid4はuuidモジュールのバージョン4で、16バイト(hex)の乱数を生成してくれる
 app.permanent_session_lifetime = timedelta(days=SESSION_DAYS)
 
+
 # トップページの処理
 @app.route('/', methods=['GET'])
 def index():
   user_id = session.get('user_id')
   family_id = session.get('family_id')
 
-  if user_id is None:
-    return render_template('index.html')
-  return redirect(url_for('messages_view', family_id=family_id))
+#   if user_id is None: 
+  return render_template('index.html')
+#   return redirect(url_for('messages_view', family_id=family_id))
+# ↑開発中のみmessages_viewへのリダイレクトをコメントアウト！
 
 
 # サインアップページの表示：管理者ユーザ
@@ -77,6 +79,17 @@ def signup_process():
     return redirect(url_for('signup_process'))
 
 
+# サインアップ完了画面
+@app.route('/signup/complete', methods=['GET'])
+def signup_complete_view():
+    user_id = session.get('user_id')
+    family_id = session.get('family_id')
+
+    if user_id is None:
+        return redirect(url_for('login_view')) 
+    return render_template('signup_complete.html', family_id=family_id)
+
+
 # サインアップページの表示：家族ユーザ
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
@@ -113,16 +126,6 @@ def signup_family_process():
             session['user_id'] = UserID
             return redirect(url_for('messages_view'))
     return redirect(url_for('signup_family_process'))
-
-
-# サインアップ完了画面
-@app.route('/signup/complete', methods=['GET'])
-def signup_complete_view():
-    user_id = session.get('user_id')
-
-    if user_id is None:
-        return redirect(url_for('login_view')) 
-    return render_template('signup_complete.html')
 
 
 # ログインページの表示
@@ -225,7 +228,33 @@ def decide_menu(family_id):
 """
 
 
+# ごはん履歴画面の表示
+"""
+@app.route('/<family_id>/messages/history', methods=['GET'])
+def history_view(family_id):
+    user_id = session.get('user_id')
+    family_id = session.get('family_id')
 
+    if user_id is None:
+        return redirect(url_for('login_view'))
+    return render_template('history.html', family_id=family_id)
+
+"""
+
+
+# ごはんルーレット画面の表示
+"""
+@app.route('/<family_id>/messages/roulette', methods=['GET'])
+def roulette_view(family_id):
+    user_id = session.get('user_id')
+    family_id = session.get('family_id')
+
+    if user_id is None:
+        return redirect(url_for('login_view'))
+    return render_template('roulette.html', family_id=family_id)
+
+"""
+    
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)
