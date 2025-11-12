@@ -21,14 +21,12 @@
             <img src="{{ url_for('static', filename='img/image_お皿.png') }}">
             <p class="description">管理者アカウント<br>作成が完了しました</p>
 
-            <!-- 1つ目のボタン -->
             <button>
                 <a href="{{ url_for('messages_view', family_id=family_id) }}">チャットルーム<br>へ移動</a>
             </button>
-
-            <!-- 2つ目のボタン -->
+            
             <button>
-                <a href="{{ url_for('signup_family_view') }}">家族アカウント作成<br>を作成する</a>
+                <a href="{{ url_for('signup_family_view') }}">家族アカウント<br>を作成する</a>
             </button>
         </div>
     </div>
