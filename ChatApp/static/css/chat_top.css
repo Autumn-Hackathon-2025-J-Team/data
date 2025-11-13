@@ -1,16 +1,5 @@
 /*チャット画面のCSS */
 
-
-/* ========================== ヘッダー部分 ============================= */
-#chat-header{
-    display:flex;
-    flex-direction: ;
-    justify-content: space-between;
-    background-color:white;
-    position:sticky;
-
-}
-
 #chat-main{
     background-color:#ffd699;
 

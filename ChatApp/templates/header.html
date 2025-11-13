@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang ="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title></title>
+        <link rel="stylesheet" href="../static/css/chat_header.css">
+    </head>
+
+    <body>
+    <!--ヘッダー情報-->
+    <header id="chat-header">
+        <image src="../static/img/image_お皿.png"alt="アプリのアイコン画像">
+        <p class="chat-name">{{ users.family_name }}</p>
+        
+        <!--ログインユーザーがadmin権限を持っている場合は管理者メニューを表示する。-->
+        {% if uid == users.is_admin %}
+        <a href="chat_menu_1.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+        {% else %}
+        <a href="chat_menu_2.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+        {% endif %}
+        
+    </header>

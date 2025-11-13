@@ -1,0 +1,9 @@
+
+#chat-header{
+    display:flex;
+    flex-direction: ;
+    justify-content: space-between;
+    background-color:white;
+    position:sticky;
+
+}

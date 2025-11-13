@@ -6,14 +6,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>チャット画面top</title>
         <link rel="stylesheet" href="../static/css/chat_top.css"/>
+        <link rel="stylesheet" href="../static/css/chat_header.css"/>
     </head>
 
     <body>
         <!--ヘッダー情報-->
         <header id="chat-header">
-            <image src="../static/img/image_お皿.png"alt="アプリのアイコン画像">
-            <p class="chat-name">{{ users.family_name }}</p>
-            <a href="chat_menu.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+            {% include 'components/chat_header.html' %}
         </header>
 
         <!--チャット送信機能／チャット履歴を表すエリア-->
@@ -21,6 +20,7 @@
             <!--チャット履歴表示画面-->
             <p class="user-name">{{ users.user_name}}</p>
             <ul class="message">
+                <div class="user-myself">
                 {% for message in messages}
                     <li>{{ messages.content}}</li>
                 {% endfor %}
