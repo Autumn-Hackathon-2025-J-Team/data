@@ -12,24 +12,24 @@
         <!--ヘッダー情報-->
         <header id="chat-header">
             <image src="../static/img/image_お皿.png"alt="アプリのアイコン画像">
-            <p class="chat-name">{{ users.family_name }}</p>
+            <p class="chat-name">{{ family_name }}</p>
             <a href="chat_menu.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
         </header>
 
         <!--チャット送信機能／チャット履歴を表すエリア-->
         <main id="chat-main">
             <!--チャット履歴表示画面-->
-            <p class="user-name">{{ users.user_name}}</p>
+            <p class="user-name">{{ user_name }}</p>
             <ul class="message">
-                {% for message in messages}
-                    <li>{{ messages.content}}</li>
+                {% for message in messages %}
+                    <li>{{ message.content }}</li>
                 {% endfor %}
             </ul>
 
 
             <!--チャット送信機能-->
             <div class="message-type-area">
-                <form action="{{ url_for( 'create_messages', family_id=Family_id )}}" method=POST>
+                <form action="{{ url_for( 'create_message', family_id=Family_id )}}" method=POST>
                     <textarea placeholder="文字を入力する"></textarea>
                     <button type="submit" name="button"value="blank">
                         <form>　</form>
