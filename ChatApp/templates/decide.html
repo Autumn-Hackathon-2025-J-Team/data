@@ -24,7 +24,6 @@
     <form action="{{ url_for('decide_menu', family_id=family_id) }}" method="POST">
         <p>今日のご飯は</p>
         <div>
-            <label for="decide-menu-input">決定メニュー</label>
             <!-- inputタグにname属性を使ってユーザーが入力した値を取得する -->
             <input type="text" id="decide-menu-input" name="menu" placeholder="メニューを入力" required />
         </div>
