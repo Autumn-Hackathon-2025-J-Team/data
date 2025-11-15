@@ -151,11 +151,19 @@ def login_process():
                 flash('パスワードが間違っています！')
             else:
                 session['user_id'] = user["id"]
+                session['user_name'] = user["user_name"]
                 session['family_id'] = user["family_id"]
                 session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user["is_admin"])
-                return redirect(url_for('messages_view'))
-               
+                family_id = session.get('family_id')
+
+
+                return redirect(url_for('messages_view', family_id=family_id))
+#                return redirect('/{family_id}/messages'.format(family_id = family_id))
+#                return redirect('/{family_id}/messages'.format(family_id = family_id))
+#                return render_template('chat_top.html', family_id=family_id)
+#                return redirect(url_for('messages_view', family_id=family_id))
+                          
     return redirect(url_for('login_view'))
 
 # ログアウト
@@ -178,23 +186,28 @@ def create_message(family_id):
     if message:
         Message.create(use_id, message)
 
-    return redirect('/{family_id}/messages'.format(family_id=family_id))
+    return redirect('/{family_id}/messages'.format(family_id = family_id))
 
 # チャットルーム内（同じ家族idの人が投稿したメッセージをすべて表示）
-@app.route('/chattop', methods=['GET'])
-def messages_view():
-    user_id = session.get('use_id')
-    family_id = session.get('family_id')
+@app.route('/<family_id>/messages', methods=['GET'])
+def messages_view(family_id):
+    user_id = session.get('user_id')
 
     # ユーザーidが取得できない場合はログイン画面へ遷移
     if user_id is None:
         return redirect(url_for('login_view'))
-    
-    messages = Message.get_all(family_id)
+
+    #セッション情報をすべてuserへ入れる
+#   user = dict(session)
+
+    user_id = session.get('user_id')
+    user_name = session.get('user_name')
     family_name = session.get('family_name')
 
- #   return redirect('chat_top.html', messages=messages, family_name=family_name)
-    return render_template('chat_top.html', messages=messages, family_name=family_name)
+    #チャットルームに表示するメッセージをすべて取得    
+    messages = Message.get_all(family_id)
+
+    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
     
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
