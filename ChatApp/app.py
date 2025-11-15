@@ -96,7 +96,7 @@ def signup_family_view():
     is_admin = session.get('is_admin')
     if is_admin is not True:
         flash('管理者ユーザーのみ利用可能な機能です')
-        return redirect(url_for('messages_view'))
+        return redirect(url_for('messages_view', family_id=family_id))
     return render_template('signup_family.html')
 
 
@@ -124,7 +124,7 @@ def signup_family_process():
             User.create(user_id, user_name, email, password, False, family_id, family_name)
             UserID = str(user_id)
             session['user_id'] = UserID
-            return redirect(url_for('messages_view'))
+            return redirect(url_for('messages_view', family_id=family_id))
     return redirect(url_for('signup_family_process'))
 
 
@@ -156,7 +156,6 @@ def login_process():
                 session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user["is_admin"])
                 family_id = session.get('family_id')
-
 
                 return redirect(url_for('messages_view', family_id=family_id))
 #                return redirect('/{family_id}/messages'.format(family_id = family_id))
@@ -203,11 +202,13 @@ def messages_view(family_id):
     user_id = session.get('user_id')
     user_name = session.get('user_name')
     family_name = session.get('family_name')
+    is_admin = session.get('is_admin')
+
 
     #チャットルームに表示するメッセージをすべて取得    
     messages = Message.get_all(family_id)
 
-    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
+    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages, is_admin=is_admin)
     
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
