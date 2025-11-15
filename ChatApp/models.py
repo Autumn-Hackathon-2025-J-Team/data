@@ -113,3 +113,24 @@ class Histories:
           abort(500)
       finally:
          db_pool.release(conn)
+
+  @classmethod
+  def get_all(cls, family_id):
+      conn = db_pool.get_conn()
+      try:
+         with conn.cursor() as cur:
+            sql = """
+                SELECT h.id, h.user_id, h.menu, h.created_at 
+                FROM histories AS h 
+                LEFT JOIN users AS u ON h.user_id = u.id 
+                WHERE u.family_id = %s
+                ORDER BY h.id ASC;
+                """
+            cur.execute(sql, (family_id, ))
+            menu = cur.fetchall()
+            return menu
+      except pymysql.Error as e:
+         print(f'エラーが発生しています:{e}')
+         abort(500)
+      finally:
+        db_pool.release(conn)

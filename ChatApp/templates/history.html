@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>history</title>
+{% endblock %}
+
+{% block body %}
+
+  <!--ヘッダー情報-->
+  <header id="chat-header">
+  <image src="{{ url_for('static', filename='img/image_お皿.png') }}"alt="アプリのアイコン画像">
+      <p class="chat-name">{{ family_name }}</p>
+      <a href="chat_menu.html"><image src="{{ url_for('static', filename='img/image_メニューバー.png') }}"alt="メニューバー画像"></a>
+  </header>
+
+<h1>ごはん履歴</h1>
+<div>
+  {% for history in histories %}
+    <li>{{ history.menu }} {{ history.created_at }}</li>
+  {% endfor %}
+</div>
+
+{% endblock %}

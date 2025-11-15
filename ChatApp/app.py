@@ -242,17 +242,21 @@ def decide_menu(family_id):
 
 
 # ごはん履歴画面の表示
-"""
 @app.route('/<family_id>/messages/history', methods=['GET'])
 def history_view(family_id):
     user_id = session.get('user_id')
-    family_id = session.get('family_id')
+    family_name = session.get('family_name')
+    session_family_id = session.get('family_id')
 
     if user_id is None:
         return redirect(url_for('login_view'))
-    return render_template('history.html', family_id=family_id)
+    
+    if family_id != session_family_id:
+        return redirect(url_for('messages_view', family_id=family_id))
+    
+    histories = Histories.get_all(session_family_id)
 
-"""
+    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name)
 
 
 # ごはんルーレット画面の表示
