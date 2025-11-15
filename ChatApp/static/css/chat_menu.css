@@ -1,0 +1,17 @@
+/*チャットメニューのCSS */
+
+#chat-header{
+    display:flex;
+    flex-direction: ;
+    justify-content: space-between;
+    background-color:white;
+    position:sticky;
+}
+
+.menu{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color:#fff3c2;
+    list-style-type: none;
+}
