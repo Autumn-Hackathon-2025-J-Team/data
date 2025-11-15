@@ -12,7 +12,7 @@
       <a href="chat_menu.html"><image src="{{ url_for('static', filename='img/image_メニューバー.png') }}"alt="メニューバー画像"></a>
   </header>
 
-<h1>ごはん履歴</h1>
+<h3>ごはん履歴</h3>
 <div>
   {% for history in histories %}
     <li>{{ history.menu }} {{ history.created_at }}</li>
