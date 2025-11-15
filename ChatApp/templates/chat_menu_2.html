@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>チャットメニュー2</title>
+        <link rel="stylesheet" href="../static/css/chat_menu.css">
+    </head>
+
+    <!--ヘッダー-->
+    <header id="chat-header">
+         {% include 'components/chat_header.html' %}
+    </header>
+
+    <body>
+        <!--管理者権限以外のメニュー-->
+        <ul class="menu">
+            <li><a href="chat_top.html">チャットルーム</a></li>
+            <!--ログアウト機能-->
+            {% if current_user.is_authenticated %}
+            <li><a href="./logout">ログアウト</a></li>
+            {% endif %}
+        </ul>
+
+
+    </body>
+</html>
