@@ -26,6 +26,7 @@
     text-align: center;
     font-size: 1.5em;
     color: #333;
+    margin-top: 60px;
 }
 
 .decide-menu-input {
@@ -41,15 +42,23 @@
 #decide-menu-input {
     width: calc(100% - 40px);
     max-width: 400px;
-    /* 最大幅を大きくする（例: 300pxから400pxへ） */
     padding: 18px 20px;
-    /* 上下左右のパディングを増やして、入力欄の高さを出す */
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1.2em;
-    /* フォントサイズを大きくする */
     box-sizing: border-box;
     margin-bottom: 20px;
+}
+
+.decide-button-container p {
+    margin-bottom: 30px;
+    
+}
+
+.decide-button-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
 }
 
 .decide-button{
