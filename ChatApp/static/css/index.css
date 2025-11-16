@@ -1,6 +1,7 @@
 .container {
     text-align: center;
     margin-bottom: 30px;
+
     
 }
 
@@ -81,38 +82,3 @@ button:hover {
     border-color: orangered;    
 }
 
-/* --- 携帯画面用のスタイル（max-width: 768px以下の場合に適用） --- */
-@media screen and (max-width: 768px) {
-
-    /* index.html 固有の要素の調整 */
-    .container {
-        margin-bottom: 15px;
-    }
-
-    .container img {
-        max-width: 90%;
-    }
-
-    .icon {
-        margin-bottom: 30px;
-    }
-
-    .icon img {
-        max-width: 180px;
-    }
-
-    .description {
-        font-size: 0.9rem;
-        margin: 0 10px 15px;
-    }
-
-    button {
-        margin: 0 auto 8px auto;
-    }
-
-    button a,
-    .white-button a {
-        padding: 8px 15px;
-        font-size: 14px;
-    }
-}
