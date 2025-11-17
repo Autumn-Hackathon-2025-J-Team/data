@@ -1,26 +1,3 @@
-body {
-    background-color: #ffd699;
-}
-
-#chat-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    /* 垂直方向に中央揃えにする */
-    background-color: white;
-    padding: 10px 20px;
-    /* ヘッダーの内側に少し余白を追加 */
-    position: sticky;
-    top: 0;
-    /* stickyを使うならtopも指定しなければならない */
-    width: 100%;
-    /* 幅を100%に */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* 少し影をつけて見やすく */
-    z-index: 100;
-    /* 他のコンテンツの上に表示されるように */
-}
-
 .main-content {
     flex-grow: 1;
     display: flex;
@@ -32,8 +9,16 @@ body {
     color: #333;
     max-width: 450px;
     width: 100%;
-    margin: 60px auto 0 auto;
+    margin: 0 auto;
+    background-color: #ffd699; /* この背景色を画面下まで広げたい */
+    
+    /* ここに最小高さを追加 */
+    min-height: calc(100vh - 75px);
+    /* 画面の高さからヘッダーの高さ(75px)を引いた分 */
+
 }
+
+
 
 .decide-menu-input {
     background-color: #ffffff;
