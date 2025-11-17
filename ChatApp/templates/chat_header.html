@@ -1,0 +1,11 @@
+<header id="chat-header">
+    <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="アプリのアイコン画像">
+    <p class="chat-name">{% if family_name %}{{ family_name }}{% else %}ゲスト{% endif %}</p>
+    {% if family_id %}
+    <a href="{{ url_for('chat_menu_view', family_id=family_id) }}"><img
+            src="{{ url_for('static', filename='img/image_メニューバー.png') }}" alt="メニューバー画像"></a>
+    {% else %}
+    <a href="{{ url_for('login_view') }}"><img src="{{ url_for('static', filename='img/image_メニューバー.png') }}"
+            alt="メニューバー画像"></a>
+    {% endif %}
+</header>

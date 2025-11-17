@@ -9,15 +9,6 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/decide.css') }}" />
 {% endblock %}
 
-{% block header %} 
-<header id="chat-header">
-    <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="アプリのアイコン画像"> 
-    <p class="chat-name">{{ family_name }}</p> 
-    <a href="{{ url_for('chat_menu_view', family_id=family_id) }}"><img
-            src="{{ url_for('static', filename='img/image_メニューバー.png') }}" alt="メニューバー画像"></a>   
-</header>
-{% endblock %}
-
 {% block body %} 
 <main class="main-content">
     <!-- フォームタグで囲みユーザーが入力したメニューをサーバーに送信する -->
