@@ -6,6 +6,7 @@
 {% block body %}
 
   <!--ヘッダー情報-->
+  <!-- {% include 'header.html' %} -->
   <header id="chat-header">
   <image src="{{ url_for('static', filename='img/image_お皿.png') }}"alt="アプリのアイコン画像">
       <p class="chat-name">{{ family_name }}</p>
@@ -15,7 +16,10 @@
 <h3>ごはん履歴</h3>
 <div>
   {% for history in histories %}
-    <li>{{ history.menu }} {{ history.created_at }}</li>
+    <li>{{ history.menu }}
+        {{ history.created_at.strftime("%m/%d") }}
+        ({{ WEEKDAYS[history.created_at.weekday()]}})
+        </li>
   {% endfor %}
 </div>
 

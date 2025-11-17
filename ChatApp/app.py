@@ -1,5 +1,5 @@
 from flask import Flask, session, render_template, redirect, url_for, request, flash
-from datetime import timedelta
+from datetime import timedelta, datetime
 import uuid
 import os
 import re
@@ -203,21 +203,19 @@ def messages_view(family_id):
 
     # ユーザーidが取得できない場合はログイン画面へ遷移
     if user_id is None:
-        flash('ログインしてください')
         return redirect(url_for('login_view'))
 
     #セッション情報をすべてuserへ入れる
 #   user = dict(session)
 
+    user_id = session.get('user_id')
     user_name = session.get('user_name')
     family_name = session.get('family_name')
-    is_admin = session.get('is_admin')
-
 
     #チャットルームに表示するメッセージをすべて取得    
     messages = Message.get_all(family_id)
 
-    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages, is_admin=is_admin)
+    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
     
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
@@ -266,8 +264,9 @@ def history_view(family_id):
         return redirect(url_for('messages_view', family_id=family_id))
     
     histories = Histories.get_all(session_family_id)
+    WEEKDAYS = ["月","火","水","木","金","土","日"]
 
-    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name)
+    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, WEEKDAYS=WEEKDAYS)
 
 
 # ごはんルーレット画面の表示
