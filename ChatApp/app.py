@@ -1,5 +1,5 @@
 from flask import Flask, session, render_template, redirect, url_for, request, flash
-from datetime import timedelta
+from datetime import timedelta, datetime
 import uuid
 import os
 import re
@@ -209,6 +209,7 @@ def messages_view(family_id):
     #セッション情報をすべてuserへ入れる
 #   user = dict(session)
 
+    user_id = session.get('user_id')
     user_name = session.get('user_name')
     family_name = session.get('family_name')
     is_admin = session.get('is_admin')
@@ -228,7 +229,7 @@ def decide_view(family_id):
     if not is_admin:
         return redirect('{family_id}/messages'.format(family_id = family_id))
 
-    return redirect(url_for('/<family_id>/messages/decide'))
+    return render_template('decide.html',family_id=family_id, )
 
 # ごはん決定処理
 """
@@ -266,8 +267,9 @@ def history_view(family_id):
         return redirect(url_for('messages_view', family_id=family_id))
     
     histories = Histories.get_all(session_family_id)
+    WEEKDAYS = ["月","火","水","木","金","土","日"]
 
-    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name)
+    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, WEEKDAYS=WEEKDAYS)
 
 
 # ごはんルーレット画面の表示
