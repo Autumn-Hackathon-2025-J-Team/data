@@ -15,10 +15,10 @@
         <p class="chat-name">{{ family_name }}</p>
         
         <!--ログインユーザーがadmin権限を持っている場合は管理者メニューを表示する。-->
-        {% if is_admin == True %}
-        <a href="chat_menu_1.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+        {% if is_admin %}
+            {% include "chat_menu_1.html" %}
         {% else %}
-        <a href="chat_menu_2.html"><image src="../static/img/image_メニューバー.png"alt="メニューバー画像"></a>
+            {% include "chat_menu_2.html" %}
         {% endif %}
         
     </header>

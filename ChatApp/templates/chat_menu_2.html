@@ -8,19 +8,13 @@
         <link rel="stylesheet" href="../static/css/chat_menu.css">
     </head>
 
-    <!--ヘッダー-->
-    <header id="chat-header">
-         {% include 'header.html' %}
-    </header>
 
     <body>
         <!--管理者権限以外のメニュー-->
         <ul class="menu">
             <li><a href="chat_top.html">チャットルーム</a></li>
             <!--ログアウト機能-->
-            {% if current_user.is_authenticated %}
             <li><a href="./logout">ログアウト</a></li>
-            {% endif %}
         </ul>
 
 

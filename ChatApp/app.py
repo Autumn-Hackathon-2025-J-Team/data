@@ -229,7 +229,7 @@ def decide_view(family_id):
     if not is_admin:
         return redirect('{family_id}/messages'.format(family_id = family_id))
 
-    return render_template('decide.html',family_id=family_id, )
+    return render_template('decide.html',family_id=family_id)
 
 # ごはん決定処理
 """

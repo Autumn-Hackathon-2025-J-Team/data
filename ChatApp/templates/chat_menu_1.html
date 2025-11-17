@@ -8,21 +8,16 @@
         <link rel="stylesheet" href="../static/css/chat_menu.css">
     </head>
 
-    <!--ヘッダー-->
-    <header id="chat-header">
-         {% include 'header.html' %}
-    </header>
 
     <body>
         <!--管理者権限のメニューadmin権限-->
         <ul class="menu">
             <li><a href="signup_family.html">家族IDの追加</a></li>
             <li><a href="">ご飯決定機能</a></li>
+            <li><a href="{{url_for('history_view', family_id=family_id)}}">ごはん履歴</a></li>
             <li><a href="chat_top.html">チャットルーム</a></li>
             <!--ログアウト機能-->
-            {% if current_user.is_authenticated %}
             <li><a href="./logout">ログアウト</a></li>
-            {% endif %}
         </ul>
 
 
