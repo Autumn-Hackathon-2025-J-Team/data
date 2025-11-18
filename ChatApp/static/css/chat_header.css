@@ -38,6 +38,7 @@
     /* はみ出たテキストは非表示 */
     text-overflow: ellipsis;
     /* はみ出たテキストを...で表示 */
+    color: orangered;
 }
 
 /* メニューバー */
