@@ -5,7 +5,7 @@
     <a href="{{ url_for('chat_menu_view', family_id=family_id) }}"><img
             src="{{ url_for('static', filename='img/image_メニューバー.png') }}" alt="メニューバー画像"></a>
     {% else %}
-    <a href="{{ url_for('login_view') }}"><img src="{{ url_for('static', filename='img/image_メニューバー.png') }}"
-            alt="メニューバー画像"></a>
+    <a href="{{ url_for('chat_menu_view', family_id=family_id) }}"><img
+            src="{{ url_for('static', filename='img/image_メニューバー.png') }}" alt="メニューバー画像"></a>
     {% endif %}
 </header>

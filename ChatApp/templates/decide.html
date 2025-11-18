@@ -13,7 +13,7 @@
 <main class="main-content">
     <!-- フォームタグで囲みユーザーが入力したメニューをサーバーに送信する -->
     <form action="{{ url_for('decide_menu', family_id=family_id) }}" method="POST">
-        <p>今日のご飯は</p>
+        <p class="decide-text">今日のご飯は</p>
         <div>
             <!-- inputタグにname属性を使ってユーザーが入力した値を取得する -->
             <input type="text" id="decide-menu-input" name="menu" placeholder="メニューを入力" required />
@@ -27,7 +27,7 @@
                 {% endfor %}
             </ul>
             {% endif %} {% endwith %}
-            <p>に決定!</p>
+            <p class="decide-text">に決定!</p>
         
             <button class="decide-button " type="submit">チャットに送信する</button>
         </div>   
