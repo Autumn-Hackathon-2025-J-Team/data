@@ -54,5 +54,7 @@ CREATE TABLE histories (
 INSERT INTO users(id, user_name, email, password, is_admin, family_id, family_name, created_at) VALUES('970af84c-dd40-47ff-af23-282b72b7cca8','テスト','test@gmail.com','ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae', True, '970af84c-dd40-47ff-af23-282b72b7cca9', 'テスト家', NOW());
 INSERT INTO users(id, user_name, email, password, is_admin, family_id, family_name, created_at) VALUES('970af84c-dd40-47ff-af23-282b72b7cca7','テスト2','test2@gmail.com','1772d0119cc344f719853b2c032c2921398636766efd3ed2ffbad1c798e2bd97', False, '970af84c-dd40-47ff-af23-282b72b7cca9', 'テスト家', NOW());
 INSERT INTO histories(id, user_id, menu, created_at) VALUES('1','970af84c-dd40-47ff-af23-282b72b7cca8','カレー', NOW());
+INSERT INTO histories(id, user_id, menu, created_at) VALUES('2','970af84c-dd40-47ff-af23-282b72b7cca8','ハンバーグ', NOW());
+INSERT INTO histories(id, user_id, menu, created_at) VALUES('3','970af84c-dd40-47ff-af23-282b72b7cca8','焼き魚', NOW());
 -- INSERT INTO channels(id, uid, name, abstract) VALUES(1, '970af84c-dd40-47ff-af23-282b72b7cca8','ぼっち部屋','テストさんの孤独な部屋です');
 -- INSERT INTO messages(id, uid, cid, message) VALUES(1, '970af84c-dd40-47ff-af23-282b72b7cca8', '1', '誰かかまってください、、')
