@@ -1,5 +1,5 @@
 from flask import Flask, session, render_template, redirect, url_for, request, flash
-from datetime import timedelta
+from datetime import timedelta, datetime
 import uuid
 import os
 import re
@@ -80,24 +80,20 @@ def signup_process():
     return redirect(url_for('signup_process'))
 
 
-# サインアップ完了画面
-@app.route('/signup/complete', methods=['GET'])
-def signup_complete_view():
-    user_id = session.get('user_id')
-    family_id = session.get('family_id')
-
-    if user_id is None:
-        return redirect(url_for('login_view')) 
-    return render_template('signup_complete.html', family_id=family_id)
-
-
 # サインアップページの表示：家族ユーザ
 @app.route('/signup/family',methods=['GET'] )
 def signup_family_view():
+    user_id = session.get('user_id')
     is_admin = session.get('is_admin')
-    if is_admin is not True:
-        flash('管理者ユーザーのみ利用可能な機能です')
-        return redirect(url_for('messages_view'))
+    family_id =session.get('family_id')
+
+    if user_id is None:
+        flash('ログインしてください')
+        return redirect(url_for('login_view'))
+
+    if not is_admin:
+        # flash('管理者ユーザーのみ利用可能な機能です')
+        return redirect(url_for('messages_view', family_id=family_id))
     return render_template('signup_family.html')
 
 
@@ -123,10 +119,21 @@ def signup_family_process():
            flash('そのメールアドレスは既に登録されています')
         else:
             User.create(user_id, user_name, email, password, False, family_id, family_name)
-            UserID = str(user_id)
-            session['user_id'] = UserID
-            return redirect(url_for('messages_view'))
+
+            return redirect(url_for('signup_complete_view', family_id=family_id))
     return redirect(url_for('signup_family_process'))
+
+
+# サインアップ完了画面
+@app.route('/signup/complete', methods=['GET'])
+def signup_complete_view():
+    user_id = session.get('user_id')
+    family_id = session.get('family_id')
+
+    if user_id is None:
+        flash('ログインしてください')
+        return redirect(url_for('login_view')) 
+    return render_template('signup_complete.html', family_id=family_id)
 
 
 # ログインページの表示
@@ -169,6 +176,7 @@ def login_process():
 @app.route('/logout')
 def logout():
     session.clear()
+    flash ('ログアウトしました')
     return redirect(url_for('login_view'))
 
 # メッセージの投稿
@@ -244,17 +252,23 @@ def decide_menu(family_id):
 
 
 # ごはん履歴画面の表示
-"""
 @app.route('/<family_id>/messages/history', methods=['GET'])
 def history_view(family_id):
     user_id = session.get('user_id')
-    family_id = session.get('family_id')
+    family_name = session.get('family_name')
+    session_family_id = session.get('family_id')
 
     if user_id is None:
+        flash('ログインしてください')
         return redirect(url_for('login_view'))
-    return render_template('history.html', family_id=family_id)
+    
+    if family_id != session_family_id:
+        return redirect(url_for('messages_view', family_id=family_id))
+    
+    histories = Histories.get_all(session_family_id)
+    WEEKDAYS = ["月","火","水","木","金","土","日"]
 
-"""
+    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, WEEKDAYS=WEEKDAYS)
 
 
 # ごはんルーレット画面の表示
