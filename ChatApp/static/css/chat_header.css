@@ -1,0 +1,49 @@
+#chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 0 20px;
+    /* 上下のパディングを0にするか、小さく調整 */
+    height: 75px;
+    /* ヘッダーの高さを固定（例: 2cm = 約75px） */
+    /* min-height: 75px; もしくは最小高さを設定 */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    max-width: 450px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* パディングを高さに含めるために追加 */
+}
+
+/* お皿のアイコン */
+#chat-header img:first-of-type {
+    width: 90px;
+    height: 90px;
+    /* 高さを固定して、align-items: center; で中央に配置 */
+    object-fit: contain;
+    /* 画像がはみ出さないように調整 */
+    margin-right: 10px;
+}
+
+/* 家族名の所 */
+#chat-header .chat-name {
+    font-size: 1.5em;
+    white-space: nowrap;
+    /* テキストが改行されないように */
+    overflow: hidden;
+    /* はみ出たテキストは非表示 */
+    text-overflow: ellipsis;
+    /* はみ出たテキストを...で表示 */
+    color: orangered;
+}
+
+/* メニューバー */
+#chat-header a img {
+    width: 10px;
+    height: 10px;
+    object-fit: contain;
+}

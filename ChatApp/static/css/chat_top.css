@@ -1,27 +1,55 @@
-/*チャット画面のCSS */
+/*チャット履歴部分のCSS */
 
-
-/* ========================== ヘッダー部分 ============================= */
-#chat-header{
-    display:flex;
-    flex-direction: ;
-    justify-content: space-between;
-    background-color:white;
-    position:sticky;
-
-}
-
-#chat-main{
+.chat-message{
     background-color:#ffd699;
-
+    box-sizing: border-box;
+    padding: 40px;
+    max-width: 450px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 ul{
     list-style-type: none;
 }
 
+.message_user-myself{
+    text-align: right;
+}
+
+.box{
+    position: relative;
+    width: 60%;
+    margin: 0;
+    padding: 0.7em 0 0.4em 1em;
+    font-size: 14px;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    /*white-space:行の折り返しを指定する*/
+    white-space: pre-wrap;
+}
+
+.box-right{
+    background-color: #ff751f;
+}
+
+.box-left{
+    background-color: white;
+}
+
+.message_user-others{
+    text-align: left;
+}
+
+
+
+/*チャット送信部分のCSS */
+
 .message-type-area{
-    position:fixed;
+    position:fixed absolute;
+    /*absoluteで親要素に対する位置を固定している*/  
+
 }
 
 

@@ -1,6 +1,7 @@
+
+<!--{% extends 'base.html' %} -->
 <!DOCTYPE html>
 <html lang ="ja">
-
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -20,7 +21,7 @@
         <main class="chat-message">
             <!--チャット履歴表示画面-->
             <div class="chat-rireki">
-                <p class="user-name">{{ users.user_name}}</p>
+                <p class="user-name">{{ user_name }}</p>
                 <ul class="message">
                     <!--ログインしているユーザーのチャット履歴表示-->
                     {% if messages|lenght > 0 %}{% for message in messages %}{% if messages.user_id == user_id == true %}
@@ -33,14 +34,14 @@
                             <p class="user-name">{{ messages.user_name}}</p>
                             <p class="box box-left">{{ messages.content}}</p>
                         </div>
-                    {% endfor %}
+                    {% endif %}{% endfor %}{% endif %}
                 </ul>
             </div>
 
 
             <!--チャット送信機能-->
             <div class="message-type-area">
-                <form action="{{ url_for( 'create_messages', family_id=Family_id )}}" method=POST>
+                <form action="{{ url_for( 'create_message', family_id=Family_id )}}" method=POST>
                     <textarea placeholder="文字を入力する"></textarea>
                     <button type="submit" name="button" value="blank">
                         <form>送信▶</form>
