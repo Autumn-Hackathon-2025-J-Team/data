@@ -24,7 +24,7 @@
                 <p class="user-name">{{ user_name }}</p>
                 <ul class="message">
                     <!--ログインしているユーザーのチャット履歴表示-->
-                    {% if messages|lenght > 0 %}{% for message in messages %}{% if messages.user_id == user_id == true %}
+                    {% if messages|length > 0 %}{% for message in messages %}{% if messages.user_id == user_id == true %}
                         <div class="message_user-myself">
                             <p class="box box-right">{{ messages.content}}</p>
                         </div>
