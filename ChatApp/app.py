@@ -221,16 +221,16 @@ def messages_view(family_id):
 @app.route('/<family_id>/messages/decide', methods=['GET'])
 def decide_view(family_id):
     is_admin = session.get('is_admin')
+    family_id = session.get('family_id')
 
     # 権限がない場合はメッセージ一覧画面に遷移
     if not is_admin:
         return redirect('{family_id}/messages'.format(family_id = family_id))
 
-    return redirect(url_for('/<family_id>/messages/decide'))
+    return render_template('decide.html', family_id=family_id)
 
 # ごはん決定処理
-"""
-@app.route('/<family_id>/decide', method=['POST'])
+@app.route('/<family_id>/decide', methods=['POST'])
 def decide_menu(family_id):
     is_admin = session.get('is_admin')
     
@@ -246,7 +246,6 @@ def decide_menu(family_id):
 
     return render_template('chat_top.html', family_id = family_id, family_name = family_name)
 
-"""
 
 
 # ごはん履歴画面の表示
