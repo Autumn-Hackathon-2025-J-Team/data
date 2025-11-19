@@ -163,9 +163,8 @@ def login_process():
                 session['family_id'] = user["family_id"]
                 session['family_name'] = user["family_name"]
                 session['is_admin'] = bool(user["is_admin"])
-                family_id = session.get('family_id')
 
-                return redirect(url_for('messages_view', family_id=family_id))
+                return redirect(url_for('messages_view', family_id=session['family_id'], is_admin=session['is_admin']))
 #                return redirect('/{family_id}/messages'.format(family_id = family_id))
 #                return redirect('/{family_id}/messages'.format(family_id = family_id))
 #                return render_template('chat_top.html', family_id=family_id)
@@ -211,23 +210,25 @@ def messages_view(family_id):
     user_id = session.get('user_id')
     user_name = session.get('user_name')
     family_name = session.get('family_name')
+    is_admin = session.get('is_admin')
 
     #チャットルームに表示するメッセージをすべて取得    
     messages = Message.get_all(family_id)
 
     return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
+    # return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages, is_admin=is_admin)
     
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
 def decide_view(family_id):
     is_admin = session.get('is_admin')
-    family_id = session.get('family_id')
+    family_name = session.get('family_name')
 
     # 権限がない場合はメッセージ一覧画面に遷移
     if not is_admin:
         return redirect('{family_id}/messages'.format(family_id = family_id))
 
-    return render_template('decide.html', family_id=family_id)
+    return render_template('decide.html',family_id=family_id, family_name=family_name)
 
 # ごはん決定処理
 @app.route('/<family_id>/decide', methods=['POST'])
@@ -237,6 +238,7 @@ def decide_menu(family_id):
     # 権限がない場合はメッセージ一覧画面に遷移
     if not is_admin:
         return redirect('{family_id}/messages'.format(family_id = family_id))
+
     menu = request.form.get('menu')
     user_id = session.get('user_id')
     family_name = session.get('family_name')
@@ -244,8 +246,9 @@ def decide_menu(family_id):
     Message.create(user_id, messages)
     Histories.create(user_id, menu)
 
-    return render_template('chat_top.html', family_id = family_id, family_name = family_name)
+    return redirect(url_for('messages_view', family_id=family_id))
 
+    # return redirect('{family_id}/messages'.format(family_id = family_id))
 
 
 # ごはん履歴画面の表示

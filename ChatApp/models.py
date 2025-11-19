@@ -83,7 +83,7 @@ class Message:
       try:
           with conn.cursor() as cur:
               sql = """
-                  SELECT m.id, m.user_id, content
+                  SELECT m.id, m.user_id, u.user_name, content
                   FROM messages AS m 
                   LEFT JOIN users AS u ON m.user_id = u.id 
                   WHERE family_id = %s
