@@ -1,0 +1,77 @@
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    color: #333;
+    max-width: 450px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #ffd699; /* この背景色を画面下まで広げたい */
+    
+    /* ここに最小高さを追加 */
+    min-height: calc(100vh - 75px);
+    /* 画面の高さからヘッダーの高さ(75px)を引いた分 */
+
+}
+
+.decide-menu-input {
+    background-color: #ffffff;
+    padding: 20px 40px;
+    margin: 20px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #333;
+}
+
+#decide-menu-input {
+    width: calc(100% - 40px);
+    max-width: 400px;
+    padding: 25px 5px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    font-size: 1.2em;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    background-color: #fff8e1;
+}
+
+.decide-button-container p {
+    margin-bottom: 30px; 
+}
+
+.decide-button-container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.decide-button{
+    background-color: orangered;
+    color: black;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    width: 100%;
+    max-width: 300px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* 「今日のご飯は」と「に決定!」の文字を大きくする */
+.decide-text {
+    font-size: 1.6em;
+    margin: bottom 20px;
+    margin-top: 120px;
+    
+}
+
+/* decide-button-container 内の p タグのスタイルを上書き */
+.decide-button-container p.decide-text {
+    margin-bottom: 70px;
+    margin-top: 0;
+}

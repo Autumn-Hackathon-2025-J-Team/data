@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>signup_complete</title>
+{% endblock %}
+
+{% block head %} <!-- signup_complete.cssのスタイルがsignup_complete.html専用で、他のページには影響させたくないため追加 -->
+{{ super() }} <!-- base.htmlのhead内容を継承 {{ super() }}は、Jinja2のテンプレート継承において、親テンプレートのブロックの内容を、子テンプレートでも引き継いで表示したいときに使う特別な構文-->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup_complete.css') }}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        
+        <div class="container">
+            <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
+        </div>
+
+        <div class="icon">
+            <img src="{{ url_for('static', filename='img/image_お皿.png') }}">
+            <p class="description">アカウント作成が<br>完了しました</p>
+
+            <button>
+                <a href="{{ url_for('messages_view', family_id=family_id) }}">チャットルーム<br>へ移動</a>
+            </button>
+            
+            <button>
+                <a href="{{ url_for('signup_family_view') }}">家族アカウント<br>を作成する</a>
+            </button>
+        </div>
+    </div>
+</div>
+{% endblock %}

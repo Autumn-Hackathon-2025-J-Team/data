@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+
+{% block title %}
+<title>decide</title>
+{% endblock %}
+
+{% block head %} 
+{{ super() }} 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/decide.css') }}" />
+{% endblock %}
+
+{% block body %} 
+<main class="main-content">
+    <!-- フォームタグで囲みユーザーが入力したメニューをサーバーに送信する -->
+    <form action="{{ url_for('decide_menu', family_id=family_id) }}" method="POST">
+        <p class="decide-text">今日のご飯は</p>
+        <div>
+            <!-- inputタグにname属性を使ってユーザーが入力した値を取得する -->
+            <input type="text" id="decide-menu-input" name="menu" placeholder="メニューを入力" required />
+        </div>
+        <div class="decide-button-container">
+        
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+            <p class="decide-text">に決定!</p>
+        
+            <button class="decide-button " type="submit">チャットに送信する</button>
+        </div>   
+    </form>
+</main>
+{% endblock %}
