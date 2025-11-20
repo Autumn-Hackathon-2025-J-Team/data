@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 
-{% block header %}{% endblock %}
+{% block title %}
+<title>index</title>
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% block page_css %} {# index.html固有のCSSを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+{% endblock %}
+{% endblock %}
+
+{% block header %}{% endblock %} {# ヘッダーを非表示にする #}
 
 {% block body %}
 <div class="auth-wrapper">
