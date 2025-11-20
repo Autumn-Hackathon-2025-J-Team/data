@@ -1,0 +1,12 @@
+<header id="chat-header">
+        <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="アプリのアイコン画像">
+        <p class="chat-name">{{ family_name }}</p> 
+        <img src="{{ url_for('static', filename='img/image_メニューバー.png') }}" alt="アプリのアイコン画像">
+
+        <!-- 管理者権限のチェック -->
+        {% if is_admin %}
+            {% include 'chat_menu_1.html' %}
+        {% else %}
+            {% include 'chat_menu_2.html' %}
+        {% endif %}
+</header>

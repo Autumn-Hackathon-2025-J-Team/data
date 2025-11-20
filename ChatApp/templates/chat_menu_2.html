@@ -1,6 +1,7 @@
-<!--管理者権限以外のメニュー-->
+    <!--管理者権限以外のメニュー-->
     <ul class="menu">
         <li><a href="{{ url_for('messages_view', family_id=family_id) }}">チャットルーム</a></li>
+        <li><a href="{{ url_for('history_view', family_id=family_id) }}">ごはん履歴</a></li>
         <!--ログアウト機能-->
         <li><a href="{{ url_for('logout') }}">ログアウト</a></li>
     </ul>

@@ -1,0 +1,120 @@
+/* ログイン/管理者アカウント作成/家族アカウント作成画面のCSS */
+
+.auth-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f2f5;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.auth-container {
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 450px; /* <-- ここで最大幅が450pxに設定されている！ */
+    width: 100%; /* <-- 画面幅が450pxより小さい場合は100%に広がる */
+    text-align: center;
+    position: relative;
+}
+
+.auth-container>img {
+    max-width: 400px;
+    height: auto;
+    margin-bottom: 30px;
+}
+
+.back-button {
+    position: absolute;
+    /* 親要素（auth-container）に対して絶対位置指定 */
+    top: 15px;
+    /* 上からの位置（auth-containerのpaddingを考慮して調整） */
+    right: 15px;
+    /* 右からの位置（auth-containerのpaddingを考慮して調整） */
+    z-index: 1000;
+    /* 他の要素の上に表示されるように */
+    display: block;
+}
+
+.back-button img {
+    width: 25px;
+    height: auto;
+    display: block;
+}
+
+.back-button:hover {
+    opacity: 0.7;
+    /* ホバー時に少し透明にする */
+}
+
+.auth-title {
+    font-size: 30px;
+    color: orangered;
+    margin-bottom: 30px;
+}
+
+.auth-logo img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.auth-logo>div {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.auth-logo label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+.auth-logo input[type="text"],
+.auth-logo input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+    color: #dc3545;
+    font-size: 14px;
+}
+
+.flashes li {
+    margin-bottom: 5px;
+}
+
+.auth-button-container {
+    margin-top: 30px;
+}
+
+.auth-button {
+    background-color: orangered;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.auth-button:hover {
+    background-color: orangered;
+}
+
