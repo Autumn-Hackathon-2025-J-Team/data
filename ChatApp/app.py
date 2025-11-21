@@ -129,11 +129,12 @@ def signup_family_process():
 def signup_complete_view():
     user_id = session.get('user_id')
     family_id = session.get('family_id')
+    is_admin = session.get('is_admin')
 
     if user_id is None:
         flash('ログインしてください')
         return redirect(url_for('login_view')) 
-    return render_template('signup_complete.html', family_id=family_id)
+    return render_template('signup_complete.html', family_id=family_id, is_admin=is_admin)
 
 
 # ログインページの表示

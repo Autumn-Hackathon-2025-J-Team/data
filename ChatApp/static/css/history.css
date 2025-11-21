@@ -1,11 +1,11 @@
 body {
   box-sizing: border-box;
-  margin: 0;
 }
 
 .history-wrapper {
   width: 450px;
   margin: 0 auto;
+  /* 画面中央に寄せる */
   min-height: 100vh;
   background-color: #FFD699;
 }
@@ -31,20 +31,16 @@ body {
 
 .main-content {
     background-color: #FFD699;
-    height: 100vh;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     text-align: center;
-    font-size: 1.5em;
-    color: #333;
+    font-size: 24px;
+    padding: 20px;
 }
   
   h3 {
-    position: fixed;
-    top: 120px;
     background-color: #FF751F;
     color: white;
     padding: 8px;
@@ -53,9 +49,18 @@ body {
 }
 
 .menu-list {
-    max-width: 300px;
+    margin: 20px;
+}
+
+table tr {
+    width: 320px;
     background-color: #FCE2BB;
     color: #F85F00;
     border: #FCE2BB;
-    padding: 40px;
+    border: 1px solid #FFD699;
+}
+
+table td {
+    padding: 16px 24px;
+    font-size: 20px;
 }
