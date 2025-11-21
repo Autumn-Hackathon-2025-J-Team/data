@@ -7,6 +7,7 @@
 {% block head %}
 {{ super() }}
 {% block page_css %} {# index.html固有のCSSを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
 {% endblock %}
 {% endblock %}
