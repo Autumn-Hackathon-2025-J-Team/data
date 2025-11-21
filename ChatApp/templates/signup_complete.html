@@ -4,12 +4,11 @@
 <title>signup_complete</title>
 {% endblock %}
 
-{% block head %} <!-- signup_complete.cssのスタイルがsignup_complete.html専用で、他のページには影響させたくないため追加 -->
-{{ super() }} <!-- base.htmlのhead内容を継承 {{ super() }}は、Jinja2のテンプレート継承において、親テンプレートのブロックの内容を、子テンプレートでも引き継いで表示したいときに使う特別な構文-->
+{% block head %}
+{{ super() }}
+{% block page_css %} {# signup_complete.cssを読み込む #}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/signup_complete.css') }}">
 {% endblock %}
-
-{% block header %}{% endblock %}
 
 {% block body %}
 <div class="auth-wrapper">

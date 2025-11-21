@@ -3,7 +3,14 @@
 <title>signup_family</title>
 {% endblock %}
 
-{% block header %}{% endblock %}
+{% block head %}
+{{ super() }}
+{% block page_css %} {# auth.cssを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
+{% endblock %}
+{% endblock %}
+
+{% block header %}{% endblock %} {# ヘッダーを非表示にする #}
 
 {% block body %}
 <div class="auth-wrapper">

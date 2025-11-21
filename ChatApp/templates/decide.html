@@ -4,10 +4,13 @@
 <title>decide</title>
 {% endblock %}
 
-{% block head %} 
-{{ super() }} 
+{% block head %}
+{{ super() }}
+{% block page_css %} {# decide.cssを読み込む #}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/decide.css') }}" />
 {% endblock %}
+{% endblock %}
+
 
 {% block body %} 
 <main class="main-content">
