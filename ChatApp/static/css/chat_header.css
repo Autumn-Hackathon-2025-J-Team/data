@@ -4,10 +4,7 @@
     align-items: center;
     background-color: white;
     padding: 0 20px;
-    /* 上下のパディングを0にするか、小さく調整 */
     height: 75px;
-    /* ヘッダーの高さを固定（例: 2cm = 約75px） */
-    /* min-height: 75px; もしくは最小高さを設定 */
     position: sticky;
     top: 0;
     width: 100%;
@@ -23,10 +20,11 @@
 #chat-header img:first-of-type {
     width: 90px;
     height: 90px;
-    /* 高さを固定して、align-items: center; で中央に配置 */
     object-fit: contain;
     /* 画像がはみ出さないように調整 */
     margin-right: 10px;
+    flex-shrink: 0;
+    /* 縮まないようにする */
 }
 
 /* 家族名の所 */
@@ -39,11 +37,127 @@
     text-overflow: ellipsis;
     /* はみ出たテキストを...で表示 */
     color: orangered;
+    flex-grow: 1;
+    /* 残りのスペースを全て占めるように広がる */
+    text-align: left;
+    margin-left: 60px;
+    margin-right: 10px;
+    
 }
 
-/* メニューバー */
-#chat-header a img {
-    width: 10px;
-    height: 10px;
-    object-fit: contain;
+/* ハンバーガーメニューのコンテナ */
+.hamburger-menu {
+    position: relative;
+    /* ドロップダウンメニューの基準位置 */
+    z-index: 200;
+    /* 他の要素より手前に */
+    /* #chat-headerがflexなので、右端に自動配置される */
+    flex-shrink: 0;
+    /* 縮まないようにする */
+}
+
+/* チェックボックスは非表示 */
+#menu-btn-check {
+    display: none;
+}
+
+/* メニューボタン */
+.menu-btn {
+    display: flex;
+    height: 50px;
+    width: 50px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 201;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid orangered;
+    
+}
+
+/* ハンバーガーアイコンの線 */
+.menu-btn span,
+.menu-btn span:before,
+.menu-btn span:after {
+    content: '';
+    display: block;
+    height: 3px;
+    width: 25px;
+    border-radius: 3px;
+    background-color: orangered;
+    position: absolute;
+    transition: all 0.3s ease;
+    /* アニメーション */
+}
+
+.menu-btn span:before {
+    bottom: 8px;
+}
+
+.menu-btn span:after {
+    top: 8px;
+}
+
+/* ×ボタンへのアニメーション */
+#menu-btn-check:checked~.menu-btn span {
+    background-color: rgba(255, 255, 255, 0);
+    /* 真ん中の線を透明にする */
+}
+
+#menu-btn-check:checked~.menu-btn span::before {
+    bottom: 0;
+    transform: rotate(45deg);
+}
+
+#menu-btn-check:checked~.menu-btn span::after {
+    top: 0;
+    transform: rotate(-45deg);
+}
+
+/* メニュー内容 */
+.menu-content {
+    width: 200px;
+    background-color: #f9f9f9;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 199;
+
+    /* 初期状態は非表示 */
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    /* 少し上にずらしておく */
+    transition: all 0.3s ease;
+    /* アニメーション */
+}
+
+/* チェックボックスがチェックされたらメニューを表示 */
+#menu-btn-check:checked~.menu-content {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* メニューリストのスタイル */
+.menu-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-content li a {
+    display: block;
+    padding: 12px 16px;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+}
+
+.menu-content li a:hover {
+    background-color: #f1f1f1;
 }

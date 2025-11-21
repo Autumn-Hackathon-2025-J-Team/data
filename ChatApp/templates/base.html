@@ -8,18 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% block title %}{% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    {% block common_css %} {# 共通CSS用のブロック #}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/chat_header.css') }}">
     {% endblock %}
 
-</head>
+    {% block page_css %}{% endblock %} {# ページ固有CSS用のブロック。子テンプレートで上書きする #}
+    {% endblock %} 
 
+</head>
 <body>
     {% block header %}
-    {% include 'chat_header.html' %} {# base.htmlのheaderブロックでインクルードする #}
+    {% include 'chat_header.html' %}
     {% endblock %}
-
+    
     {% block body %}{% endblock %}
 </body>
 
