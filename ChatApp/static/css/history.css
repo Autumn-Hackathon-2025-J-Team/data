@@ -1,61 +1,53 @@
 body {
-  box-sizing: border-box;
-  margin: 0;
+    box-sizing: border-box;
 }
 
 .history-wrapper {
-  width: 450px;
-  margin: 0 auto;
-  min-height: 100vh;
-  background-color: #FFD699;
-}
-
-#chat-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  /* 垂直方向に中央揃えにする */
-  background-color: white;
-  padding: 10px 20px;
-  /* ヘッダーの内側に少し余白を追加 */
-  position: sticky;
-  top: 0;
-  /* stickyを使うならtopも指定しなければならない */
-  width: 100%;
-  /* 幅を100%に */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* 少し影をつけて見やすく */
-  z-index: 100;
-  /* 他のコンテンツの上に表示されるように */
+    width: 450px;
+    margin: 0 auto;
+    /* 画面中央に寄せる */
+    min-height: 100vh;
+    background-color: #FFD699;
 }
 
 .main-content {
     background-color: #FFD699;
-    height: 100vh;
-    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     text-align: center;
-    font-size: 1.5em;
-    color: #333;
-}
+    font-size: 24px;
+    padding: 20px;
+  }
   
-  h3 {
-    position: fixed;
-    top: 120px;
+h1 {
     background-color: #FF751F;
     color: white;
     padding: 8px;
     border-radius: 8px;
     width: 240px;
-}
+    font-size: 24px;
+  }
 
 .menu-list {
-    max-width: 300px;
+    width: 90%;
+    margin: 20px;
+}
+
+.menu-list table {
+    width: 100%;
+}
+
+.menu-list td {
+    width: 50%;
     background-color: #FCE2BB;
     color: #F85F00;
-    border: #FCE2BB;
-    padding: 40px;
+    padding: 16px 24px;
+    font-size: 20px;
+    border: 1px solid #FFD699;
+}
+
+.menu-list tr {
+    background-color: #FCE2BB;
 }
