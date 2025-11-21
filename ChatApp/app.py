@@ -216,8 +216,8 @@ def messages_view(family_id):
     #チャットルームに表示するメッセージをすべて取得    
     messages = Message.get_all(family_id)
 
-    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
-    # return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages, is_admin=is_admin)
+    # return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages)
+    return render_template('chat_top.html',family_id=family_id, family_name=family_name, user_id=user_id, user_name=user_name, messages=messages, is_admin=is_admin)
     
 # ごはん決定画面の表示
 @app.route('/<family_id>/messages/decide', methods=['GET'])
@@ -258,6 +258,8 @@ def history_view(family_id):
     user_id = session.get('user_id')
     family_name = session.get('family_name')
     session_family_id = session.get('family_id')
+    is_admin = session.get('is_admin')
+
 
     if user_id is None:
         flash('ログインしてください')
@@ -269,7 +271,7 @@ def history_view(family_id):
     histories = Histories.get_all(session_family_id)
     WEEKDAYS = ["月","火","水","木","金","土","日"]
 
-    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, WEEKDAYS=WEEKDAYS)
+    return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, is_admin=is_admin, WEEKDAYS=WEEKDAYS)
 
 
 # ごはんルーレット画面の表示
