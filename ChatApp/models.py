@@ -105,7 +105,7 @@ class Histories:
       conn = db_pool.get_conn()
       try:
           with conn.cursor() as cur:
-              sql = "INSERT INTO histries(user_id, menu) VALUE(%s, %s)"
+              sql = "INSERT INTO histories(user_id, menu) VALUE(%s, %s)"
               cur.execute(sql, (user_id, menu,))
               conn.commit()
       except pymysql.Error as e:
