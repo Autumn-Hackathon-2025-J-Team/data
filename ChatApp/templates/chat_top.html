@@ -18,15 +18,15 @@
             <div class="chat-rireki">
                 <ul class="message">
                     <!--ログインしているユーザーのチャット履歴表示-->
-                    {% if messages|length > 0 %}{% for message in messages %}{% if messages.user_id == user_id == true %}
+                    {% if messages|length > 0 %}{% for message in messages %}{% if message.user_id == user_id %}
                         <div class="message_user-myself">
-                            <p class="box box-right">{{ messages.content}}</p>
+                            <p class="box box-right">{{ message.content}}</p>
                         </div>
                     <!--その他の人のチャット履歴の表示-->
                     {% else %}
                         <div class="message_user-others">
-                            <p class="user-name">{{ messages.user_name}}</p>
-                            <p class="box box-left">{{ messages.content}}</p>
+                            <p class="user-name">{{ message.user_name}}</p>
+                            <p class="box box-left">{{ message.content}}</p>
                         </div>
                     {% endif %}{% endfor %}{% endif %}
                 </ul>
@@ -34,11 +34,9 @@
 
             <!--チャット送信機能-->
             <div class="message-type-area">
-                <form action="{{ url_for( 'create_message', family_id=Family_id )}}" method=POST>
-                    <textarea placeholder="文字を入力する"></textarea>
-                    <button type="submit" name="button" value="blank">
-                        <form>送信▶</form>
-                    </button>
+                <form action="{{ url_for( 'create_message', family_id=family_id )}}" method=POST>
+                    <textarea placeholder="文字を入力する" name="message"></textarea><!-- inputタグにname属性を使ってユーザーが入力した値を取得する -->
+                    <button type="submit" name="button" value="blank">送信▶</button>
                 </form>
             </div>
         </main>
