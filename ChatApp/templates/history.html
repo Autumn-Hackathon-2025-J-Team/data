@@ -4,23 +4,24 @@
 <title>history</title>
 {% endblock %}
 
-{% block head %} 
-{{ super() }} 
+{% block page_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
-{% endblock %}
+{% endblock %} 
 
 {% block body %}
 <div class="history-wrapper">
 <div class="main-content">
-  <h3>ごはん履歴</h3>
+  <h1>ごはん履歴</h1>
     <div class="menu-list">
-      {% for history in histories %}
-        <tr>
-          <td class="menu">{{ history.menu }} </td>
-          <td class="created_at">{{ history.created_at.strftime("%m/%d") }}
-          ({{ WEEKDAYS[history.created_at.weekday()]}})</td>
-        </tr>
-      {% endfor %}
+      <table>
+        {% for history in histories %}
+          <tr>
+            <td class="menu">{{ history.menu }} </td>
+            <td class="created_at">{{ history.created_at.strftime("%m/%d") }}
+            ({{ WEEKDAYS[history.created_at.weekday()]}})</td>
+          </tr>
+        {% endfor %}
+      </table>
     </div>
 </div>
 </div>
