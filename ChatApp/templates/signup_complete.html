@@ -4,9 +4,14 @@
 <title>signup_complete</title>
 {% endblock %}
 
-{% block page_css %} {# signup_complete.cssを読み込む #}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/signup_complete.css') }}">
+{% block head %} 
+{{ super() }} {# base.htmlのhead内容（metaタグや共通CSSなど）を継承する #}
+{% block page_css %} {# このブロックを上書きして、signup_complete.html固有のCSSを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/signup_complete.css') }}" />
 {% endblock %}
+{% endblock %} 
+
+{% block header %}{% endblock %}
 
 {% block body %}
 <div class="auth-wrapper">
