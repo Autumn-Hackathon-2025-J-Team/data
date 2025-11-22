@@ -28,16 +28,19 @@
                             <p class="user-name">{{ message.user_name}}</p>
                             <p class="box box-left">{{ message.content}}</p>
                         </div>
-                    {% endif %}{% endfor %}{% endif %}
+                    {% endif %}{% endfor %}{% else %}
+                    <p class="no-message">まだメッセージがありません</p>
+                    {% endif %}
                 </ul>
             </div>
 
-            <!--チャット送信機能-->
-            <div class="message-type-area">
-                <form action="{{ url_for( 'create_message', family_id=family_id )}}" method=POST>
-                    <textarea placeholder="文字を入力する" name="message"></textarea><!-- inputタグにname属性を使ってユーザーが入力した値を取得する -->
-                    <button type="submit" name="button" value="blank">送信▶</button>
-                </form>
-            </div>
+                <!--チャット送信機能-->
+                <div class="message-type-area">
+                    <form action="{{ url_for( 'create_message', family_id=family_id )}}" method=POST>
+                        <!-- name属性を使ってユーザーが入力した値を取得する,autofocus属性でページ開いたときに入力可能状態にする -->
+                        <textarea class="textarea"placeholder="文字を入力する" name="message" autofocus></textarea>
+                        <button type="submit" name="button" value="blank">送信▶</button>
+                    </form>
+                </div>
         </main>
 {% endblock %}
