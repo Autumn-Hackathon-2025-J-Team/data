@@ -6,7 +6,8 @@
 
 {% block head %} 
 {{ super() }} {# base.htmlのhead内容（metaタグや共通CSSなど）を継承する #}
-{% block page_css %} {# このブロックを上書きして、signup_complete.html固有のCSSを読み込む #}
+{% block page_css %} {# このブロックを上書きして、auth.cssを読み込み、その後signup_complete.html固有のCSSを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
 <link rel="stylesheet" href="{{ url_for('static', filename='css/signup_complete.css') }}" />
 {% endblock %}
 {% endblock %} 
