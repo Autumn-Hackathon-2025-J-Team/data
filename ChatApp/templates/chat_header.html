@@ -1,12 +1,12 @@
 <header id="chat-header">
     <img src="{{ url_for('static', filename='img/image_お皿.png') }}" alt="アプリのアイコン画像">
-    <p class="chat-name">{% if family_name %}{{ family_name }}{% else %}ゲスト{% endif %}</p>
+    <p class="chat-name">{{ family_name }}</p>
 
-    <div class="hamburger-menu"> {# ハンバーガーメニューのコンテナ #}
+    <div class="hamburger-menu"> 
         <input type="checkbox" id="menu-btn-check">
         <label for="menu-btn-check" class="menu-btn"><span></span></label>
         <!--ここからメニュー-->
-        <div class="menu-content"> {# menu-contentはhamburger-menuの子要素にする #}
+        <div class="menu-content"> 
             <ul>
                 {% if is_admin %}
                 {% include 'chat_menu_1.html' %}
