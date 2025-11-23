@@ -1,13 +1,13 @@
 /*チャット履歴部分のCSS */
 
 .chat-message{
+    margin:0 auto;/*画面の中央に寄せる上下＋左右*/
     background-color:#ffd699;
     box-sizing: border-box;
     padding: 40px;
     max-width: 450px;
     width: 100%;
     display: flex;
-    justify-content: center;
     flex-direction: column;
 }
 
@@ -17,6 +17,20 @@ ul{
 
 .message_user-myself{
     text-align: right;
+    /*吹き出しを右側に寄せる*/
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 10px;/*チャット間に余白をつくる*/
+}
+
+.message_user-others{
+    text-align: left;
+    /*吹き出しを左側に寄せる*/
+    display: flex;
+    justify-content: flex-start;
+    /*ユーザーの名前を縦に表示する*/
+    flex-direction: column;
+    margin-bottom: 10px;
 }
 
 .box{
@@ -39,12 +53,13 @@ ul{
     background-color: white;
 }
 
-.message_user-others{
-    text-align: left;
-}
 
 .user-name{
     
+}
+
+.no-message{
+    margin: 0 auto;
 }
 
 
@@ -52,11 +67,15 @@ ul{
 /*チャット送信部分のCSS */
 
 .message-type-area{
-    position:fixed absolute;
-    /*absoluteで親要素に対する位置を固定している*/  
-
+    position:fixed absolute;/*absoluteで親要素に対する位置を固定している*/
 }
 
+.textarea{
+    /*resizeテキストエリアの幅固定*/
+    width: 450px;
+    max-width: 100%;
+    resize: vertical;
+}
 
 button:hover{
     background-color: lightgray;
