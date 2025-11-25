@@ -1,6 +1,7 @@
 /*チャット履歴部分のCSS */
 
 .chat-message{
+    overflow: scroll;/*画面からはみ出たチャットをスクロールする*/
     margin:0 auto;/*画面の中央に寄せる上下＋左右*/
     background-color:#ffd699;
     box-sizing: border-box;
@@ -51,11 +52,36 @@ ul{
 
 .box-right{
     background-color: #ff751f;
+    border-radius: 12px;
+}
+
+ /*吹き出しのしっぽ右*/
+.box-right::before{
+    content: '';
+    position: absolute;
+    right: 10px;
+    bottom: -10px;
+    border-width: 20px 10px 0 10px;
+    border-style: solid;
+    border-color:#ff751f transparent transparent transparent;
 }
 
 .box-left{
     background-color: white;
+    border-radius: 12px;
 }
+
+ /*吹き出しのしっぽ左*/
+.box-left::before{
+    content: '';
+    position: absolute;
+    left: 10px;
+    bottom: -10px;
+    border-width: 20px 10px 0 10px;
+    border-style: solid;
+    border-color:white transparent transparent transparent;
+}
+
 
 
 .user-name{
@@ -64,6 +90,7 @@ ul{
 
 .no-message{
     margin: 0 auto;
+    text-align: center;
 }
 
 
