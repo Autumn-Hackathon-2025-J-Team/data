@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>roulette</title>
+{% endblock %}
+
+{% block page_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/roulette.css') }}">
+{% endblock %} 
+
+{% block body %}
+<div class="roulette-wrapper">
+  <h1>ごはんルーレット</h1>
+    <!-- レパートリーを追加 -->
+    <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
+            <input type="text" name="menu" placeholder="メニューを入力" required /><br>
+            <button type="submit" name="add">レパートリーに追加</button>
+    </form>
+
+    <!-- ルーレットを回す -->
+    <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
+            <div>ごはんルーレット</div>
+            <button type="submit" name="play">スタート</button>
+    </form>
+
+    {%if result %}
+      <p>今日のごはんは</p>
+      <p>{{ result.menu }}です！</p>
+    {% endif %}
+
+    <div>ごはん候補</div>
+    {% for roulette in menus%}
+     <li>{{ roulette.menu}}</li> 
+    {% endfor %}
+
+  </div>
+{% endblock %} 

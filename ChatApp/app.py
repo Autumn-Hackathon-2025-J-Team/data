@@ -4,8 +4,9 @@ import uuid
 import os
 import re
 import hashlib
+import random
 
-from models import User, Message, Histories
+from models import User, Message, Histories, Roulette
 
 # 定数定義
 EMAIL_PATTERN = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -85,14 +86,13 @@ def signup_process():
 def signup_family_view():
     user_id = session.get('user_id')
     is_admin = session.get('is_admin')
-    family_id =session.get('family_id')
+    family_id = session.get('family_id')
 
     if user_id is None:
         flash('ログインしてください')
         return redirect(url_for('login_view'))
 
     if not is_admin:
-        # flash('管理者ユーザーのみ利用可能な機能です')
         return redirect(url_for('messages_view', family_id=family_id))
     return render_template('signup_family.html')
 
@@ -249,13 +249,14 @@ def history_view(family_id):
     user_id = session.get('user_id')
     family_name = session.get('family_name')
     session_family_id = session.get('family_id')
+    # パラメータから受け取るものではなく、ログイン中のユーザーのidをsessionから取得
     is_admin = session.get('is_admin')
-
 
     if user_id is None:
         flash('ログインしてください')
         return redirect(url_for('login_view'))
     
+    # パラメータとセッション情報のfamily_idが一致するか確認
     if family_id != session_family_id:
         return redirect(url_for('messages_view', family_id=family_id))
     
@@ -265,19 +266,39 @@ def history_view(family_id):
     return render_template('history.html', family_id=family_id, histories=histories, family_name=family_name, is_admin=is_admin, WEEKDAYS=WEEKDAYS)
 
 
-# ごはんルーレット画面の表示
-"""
-@app.route('/<family_id>/messages/roulette', methods=['GET'])
+#  ごはんルーレット画面表示＆処理
+@app.route('/<family_id>/messages/roulette', methods=['GET','POST'])
 def roulette_view(family_id):
     user_id = session.get('user_id')
-    family_id = session.get('family_id')
+    family_name = session.get('family_name')
+    session_family_id = session.get('family_id')
+    is_admin = session.get('is_admin')
 
     if user_id is None:
+        flash('ログインしてください')
         return redirect(url_for('login_view'))
-    return render_template('roulette.html', family_id=family_id)
 
-"""
+    if not is_admin or family_id != session_family_id:
+        return redirect(url_for('messages_view', family_id=family_id))
     
+    result = None 
+
+    if request.method == 'POST':
+        
+        # レパートリーを追加
+        if "add" in request.form:
+            menu = request.form.get('menu')
+            Roulette.create(user_id, menu)
+
+        # ルーレットスタート
+        if "play" in request.form:
+            menus = Roulette.get_all(family_id)
+            result = random.choice(menus)
+
+    menus = Roulette.get_all(family_id)
+
+    return render_template('roulette.html', family_id=family_id, family_name=family_name, result=result, menus=menus)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)

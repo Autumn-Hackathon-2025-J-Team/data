@@ -134,3 +134,40 @@ class Histories:
          abort(500)
       finally:
         db_pool.release(conn)
+
+# ルーレットクラス
+class Roulette:
+  @classmethod
+  def create(cls, user_id, menu):
+      conn = db_pool.get_conn()
+      try:
+          with conn.cursor() as cur:
+              sql = "INSERT INTO roulette(user_id, menu) VALUE(%s, %s)"
+              cur.execute(sql, (user_id, menu,))
+              conn.commit()
+      except pymysql.Error as e:
+          print(f'エラーが発生しています：{e}')
+          abort(500)
+      finally:
+         db_pool.release(conn)
+
+  @classmethod
+  def get_all(cls, family_id):
+      conn = db_pool.get_conn()
+      try:
+         with conn.cursor() as cur:
+            sql = """
+                SELECT r.id, r.user_id, r.menu, r.created_at 
+                FROM roulette AS r 
+                LEFT JOIN users AS u ON r.user_id = u.id 
+                WHERE u.family_id = %s
+                ORDER BY r.id ASC;
+                """
+            cur.execute(sql, (family_id, ))
+            menu = cur.fetchall()
+            return menu
+      except pymysql.Error as e:
+         print(f'エラーが発生しています:{e}')
+         abort(500)
+      finally:
+        db_pool.release(conn)

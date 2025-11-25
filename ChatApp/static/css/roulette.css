@@ -1,0 +1,11 @@
+body {
+    box-sizing: border-box;
+}
+
+.roulette-wrapper {
+    width: 450px;
+    margin: 0 auto;
+    /* 画面中央に寄せる */
+    min-height: 100vh;
+    background-color: #FFD699;
+}
