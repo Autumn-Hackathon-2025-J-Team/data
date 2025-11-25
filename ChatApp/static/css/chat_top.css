@@ -9,6 +9,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    height: 100vh
 }
 
 ul{
@@ -21,6 +22,7 @@ ul{
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;/*チャット間に余白をつくる*/
+    max-width: calc(100% - 50px);
 }
 
 .message_user-others{
@@ -31,11 +33,13 @@ ul{
     /*ユーザーの名前を縦に表示する*/
     flex-direction: column;
     margin-bottom: 10px;
+    max-width: calc(100% - 50px);
 }
 
 .box{
     position: relative;
-    width: 60%;
+    width: fit-content;
+    max-width: 100%;
     margin: 0;
     padding: 0.7em 0 0.4em 1em;
     font-size: 14px;
