@@ -223,7 +223,7 @@ def decide_view(family_id):
     if not is_admin:
         return redirect(url_for('messages_view', family_id=family_id))
 
-    return render_template('decide.html',family_id=family_id, family_name=family_name)
+    return render_template('decide.html',family_id=family_id, family_name=family_name, is_admin=is_admin)
 
 # ごはん決定処理
 @app.route('/<family_id>/decide', methods=['POST'])
