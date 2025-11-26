@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>index</title>
+{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% block page_css %} {# index.html固有のCSSを読み込む #}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}" />
+{% endblock %}
+{% endblock %}
+
+{% block header %}{% endblock %} {# ヘッダーを非表示にする #}
+
+{% block body %}
+<div class="auth-wrapper">
+    <div class="auth-container"> 
+        <div class="container">
+            <img src="{{ url_for('static', filename='img/image_アプリ名.png') }}">
+        </div>
+
+        <div class="icon">
+            <img src="{{ url_for('static', filename='img/image_お皿.png') }}">
+            <p class="description">ファミリーチャットに<br>入る場合はこちらから！</p>
+            <button>
+                <a href="{{ url_for('login_view') }}">ログイン</a>
+            </button>
+            <p class="description">新規のファミリーチャット<br>作成はこちらから！</p>
+            <button class="white-button">
+                <a href="{{ url_for('signup_view') }}">新規登録</a>
+            </button>
+        </div>
+    </div> 
+</div>
+{% endblock %}
