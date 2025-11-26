@@ -297,7 +297,7 @@ def roulette_view(family_id):
 
     menus = Roulette.get_all(family_id)
 
-    return render_template('roulette.html', family_id=family_id, family_name=family_name, result=result, menus=menus)
+    return render_template('roulette.html', family_id=family_id, family_name=family_name, result=result, menus=menus, is_admin=is_admin)
 
 
 if __name__ == '__main__':

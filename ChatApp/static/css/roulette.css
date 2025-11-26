@@ -8,4 +8,5 @@ body {
     /* 画面中央に寄せる */
     min-height: 100vh;
     background-color: #FFD699;
+    text-align: center;
 }
