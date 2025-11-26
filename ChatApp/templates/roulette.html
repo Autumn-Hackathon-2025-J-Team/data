@@ -28,9 +28,15 @@
       <p>{{ result.menu }}です！</p>
     {% endif %}
 
+    <form class="decide_button" method="POST">
+      <!-- hiddnで入力フォームを表示させずにボタンだけに見せかける -->
+      <button type="submit" name="send" value="{{ result.menu }}">チャットに送信</button>
+    </form>
+
+
     <div>ごはん候補</div>
-    {% for roulette in menus%}
-     <li>{{ roulette.menu}}</li> 
+    {% for item in menus%}
+     <li>{{ item.menu}}</li> 
     {% endfor %}
 
   </div>

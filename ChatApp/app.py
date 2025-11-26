@@ -223,7 +223,7 @@ def decide_view(family_id):
     if not is_admin:
         return redirect(url_for('messages_view', family_id=family_id))
 
-    return render_template('decide.html',family_id=family_id, family_name=family_name)
+    return render_template('decide.html',family_id=family_id, family_name=family_name, is_admin=is_admin)
 
 # ごはん決定処理
 @app.route('/<family_id>/decide', methods=['POST'])
@@ -291,13 +291,24 @@ def roulette_view(family_id):
             Roulette.create(user_id, menu)
 
         # ルーレットスタート
-        if "play" in request.form:
+        elif "play" in request.form:
             menus = Roulette.get_all(family_id)
             result = random.choice(menus)
 
+        # チャット送信
+        elif "send" in request.form:
+            menu_name = request.form.get("send")
+            messages = f'今日のご飯は{menu_name}に決定！'
+            Message.create(user_id, messages)
+            Histories.create(user_id, menu_name)
+
+            # 送信後にチャット画面へ遷移させる
+            return redirect(url_for('messages_view', family_id=family_id))
+
+    # menu一覧を取得
     menus = Roulette.get_all(family_id)
 
-    return render_template('roulette.html', family_id=family_id, family_name=family_name, result=result, menus=menus, is_admin=is_admin)
+    return render_template('roulette.html', family_id=family_id, family_name=family_name, is_admin=is_admin, result=result, menus=menus)
 
 
 if __name__ == '__main__':
