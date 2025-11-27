@@ -297,10 +297,10 @@ def roulette_view(family_id):
 
         # チャット送信
         elif "send" in request.form:
-            menu_name = request.form.get("send")
-            messages = f'今日のご飯は{menu_name}に決定！'
+            decide = request.form.get("send")
+            messages = f'今日のご飯は{decide}に決定！'
             Message.create(user_id, messages)
-            Histories.create(user_id, menu_name)
+            Histories.create(user_id, decide)
 
             # 送信後にチャット画面へ遷移させる
             return redirect(url_for('messages_view', family_id=family_id))

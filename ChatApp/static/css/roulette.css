@@ -8,13 +8,64 @@ body {
     /* 画面中央に寄せる */
     min-height: 100vh;
     background-color: #FFD699;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
     text-align: center;
+    padding: 20px;
+    font-size: 20px;
+  }
+ 
+.main-content p {
+    font-size: 24px;
+    color: #FF751F;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 16px;
+    padding: 0;
 }
 
-li {
-    list-style: none;
+.add, .play, .repertory {
+    width: 80%;
+    background-color: antiquewhite;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.decide_button {
-    display: inline;
+.play {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+input {
+    width: 80%;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+button {
+    background-color: #FF751F;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+table {
+    margin: auto;
 }
