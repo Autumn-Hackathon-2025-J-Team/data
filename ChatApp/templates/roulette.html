@@ -39,16 +39,17 @@
           <button type="submit" name="play">スタート</button>
         </form>
 
-    {%if result %}
-      <div>今日のごはんは</br>
-      <span >{{ result.menu }}</span></br>
-      です！
-      </div>
-    {% endif %}
+      {%if result %}
+        <div>今日のごはんは</br>
+        <span >{{ result.menu }}</span></br>
+        です！
+        </div>
+      {% endif %}
     
-    <form class="send_button" method="POST">
-      <button type="submit" name="send" value="{{ result.menu }}">チャットに送信する</button>
-    </form>
+      <form class="send_button" method="POST">
+        <button type="submit" name="send" value="{{ result.menu }}">チャットに送信する</button>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %} 
