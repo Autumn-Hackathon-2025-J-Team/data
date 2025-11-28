@@ -35,7 +35,7 @@
     <!-- ルーレットを回す -->
     <div class="play">
       <p>ごはんルーレット</p>
-        <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
+        <form method="POST">
           <button type="submit" name="play">スタート</button>
         </form>
 
@@ -54,7 +54,7 @@
       </ul>
       {% endif %} {% endwith %}
 
-      <form class="send_button" method="POST">
+      <form method="POST">
         <button type="submit" name="send" value="{{ result.menu }}">チャットに送信する</button>
       </form>
     </div>
