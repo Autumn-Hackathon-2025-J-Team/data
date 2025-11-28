@@ -281,8 +281,8 @@ def roulette_view(family_id):
     if not is_admin or family_id != session_family_id:
         return redirect(url_for('messages_view', family_id=family_id))
     
-    result = None 
-    menu = None
+    result = None
+    menus = Roulette.get_all(family_id)
 
     if request.method == 'POST':
         
@@ -293,26 +293,25 @@ def roulette_view(family_id):
 
         # ルーレットスタート
         elif "play" in request.form:
-            if menu:
-                menus = Roulette.get_all(family_id)
+            if menus:
                 result = random.choice(menus)
             else:
                 flash('レパートリーを追加してください')
-                return redirect(url_for('roulette_view', family_id=family_id))
 
         # チャット送信
         elif "send" in request.form:
-            if result:
-                decide = request.form.get("send")
+            decide = request.form.get("send")
+            
+            if decide:
                 messages = f'今日のご飯は{decide}に決定！'
                 Message.create(user_id, messages)
                 Histories.create(user_id, decide)
+
+                # 送信後にチャット画面へ遷移させる
+                return redirect(url_for('messages_view', family_id=family_id))
+            
             else:
                 flash('ルーレットを回してください')
-                return redirect(url_for('roulette_view', family_id=family_id))
-
-            # 送信後にチャット画面へ遷移させる
-            return redirect(url_for('messages_view', family_id=family_id))
 
     # menu一覧を取得
     menus = Roulette.get_all(family_id)
