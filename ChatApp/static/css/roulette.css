@@ -6,7 +6,7 @@ body {
     width: 450px;
     margin: 0 auto;
     /* 画面中央に寄せる */
-    min-height: 100vh;
+    height: 100vh;
     background-color: #FFD699;
 }
 
@@ -29,7 +29,7 @@ body {
     padding: 0;
 }
 
-.add, .play, .repertory {
+.add, .play {
     width: 80%;
     background-color: antiquewhite;
     padding: 10px;
@@ -38,14 +38,37 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.repertory {
+    width: 80%;
+    max-height: 180px;
+    overflow: scroll;
+    background-color: #f6dcb4;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.repertory p {
+    font-size: 18px;
+    margin: 4px;
+}
+
+
 .play {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
+}
+
+.add input, .add button {
+    display: inline-block;
+    /* justify-content: center;
+    align-items: center; */
 }
 
 input {
-    width: 80%;
+    width: auto;
     padding: 10px;
     border: none;
     border-radius: 6px;

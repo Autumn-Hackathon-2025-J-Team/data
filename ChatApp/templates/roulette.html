@@ -11,45 +11,44 @@
 {% block body %}
 <div class="roulette-wrapper">
   <div class="main-content">
+
     <!-- レパートリーを追加 -->
     <div class="add">
-    <p>レパートリーを追加する</p>
-    <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
-            <input type="text" name="menu" placeholder="メニューを入力" required />
-            <button type="submit" name="add">追加</button>
-    </form>
+      <p>レパートリーを追加する</p>
+        <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
+          <input type="text" name="menu" placeholder="メニューを入力" required />
+          <button type="submit" name="add">追加</button>
+        </form>
+
+      <div class="repertory">
+        <p>レパートリーリスト</p>
+          <table>
+            {% for item in menus%}
+            <tr>
+              <td class="menu">{{ item.menu}}</td>
+            </tr> 
+            {% endfor %}
+          </table>
+      </div>
     </div>
 
     <!-- ルーレットを回す -->
     <div class="play">
       <p>ごはんルーレット</p>
-    <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
-            <button type="submit" name="play">スタート</button>
-    </form>
+        <form action="{{ url_for('roulette_view', family_id=family_id) }}" method="POST">
+          <button type="submit" name="play">スタート</button>
+        </form>
 
     {%if result %}
       <div>今日のごはんは</br>
       <span >{{ result.menu }}</span></br>
       です！
-    </div>
+      </div>
     {% endif %}
     
     <form class="send_button" method="POST">
       <button type="submit" name="send" value="{{ result.menu }}">チャットに送信する</button>
     </form>
   </div>
-
-    <div class="repertory">
-      <p>レパートリーリスト</p>
-        <table>
-          {% for item in menus%}
-          <tr>
-            <td class="menu">{{ item.menu}}</td>
-          </tr> 
-          {% endfor %}
-        </table>
-    </div>
-
-  </div>
-  </div>
+</div>
 {% endblock %} 
