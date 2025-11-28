@@ -282,6 +282,7 @@ def roulette_view(family_id):
         return redirect(url_for('messages_view', family_id=family_id))
     
     result = None 
+    menu = None
 
     if request.method == 'POST':
         
@@ -292,15 +293,23 @@ def roulette_view(family_id):
 
         # ルーレットスタート
         elif "play" in request.form:
-            menus = Roulette.get_all(family_id)
-            result = random.choice(menus)
+            if menu:
+                menus = Roulette.get_all(family_id)
+                result = random.choice(menus)
+            else:
+                flash('レパートリーを追加してください')
+                return redirect(url_for('roulette_view', family_id=family_id))
 
         # チャット送信
         elif "send" in request.form:
-            decide = request.form.get("send")
-            messages = f'今日のご飯は{decide}に決定！'
-            Message.create(user_id, messages)
-            Histories.create(user_id, decide)
+            if result:
+                decide = request.form.get("send")
+                messages = f'今日のご飯は{decide}に決定！'
+                Message.create(user_id, messages)
+                Histories.create(user_id, decide)
+            else:
+                flash('ルーレットを回してください')
+                return redirect(url_for('roulette_view', family_id=family_id))
 
             # 送信後にチャット画面へ遷移させる
             return redirect(url_for('messages_view', family_id=family_id))
